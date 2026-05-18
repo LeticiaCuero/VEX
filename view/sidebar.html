@@ -1,0 +1,34 @@
+<aside class="site-sidebar">
+    <div class="box-header">
+        <a class="logo" href="home.html" aria-label="Ir para a página inicial">
+            <img src="../img/Vex.png" alt="Vex" class="logo-img">
+        </a>
+        <div class="navegation">
+            <nav aria-label="Navegação principal">
+                <ul>
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="history.html">Histórico</a></li>
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="config.html">Configurações</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="logout">
+            <a class="btn-logout" href="login.html" aria-label="Sair">
+                <img src="../img/logout.svg" alt="">
+            </a>
+        </div>
+    </div>
+</aside>
+
+<div class="logout-modal" aria-hidden="true">
+    <div class="logout-modal__backdrop" data-logout-cancel></div>
+    <div class="logout-modal__box" role="dialog" aria-modal="true" aria-labelledby="logout-modal-title">
+        <h2 id="logout-modal-title">Confirmar saída</h2>
+        <p>Tem certeza que deseja sair da conta?</p>
+        <div class="logout-modal__actions">
+            <button class="logout-modal__cancel" type="button" data-logout-cancel>Cancelar</button>
+            <a class="logout-modal__confirm" href="login.html">Sair</a>
+        </div>
+    </div>
+</div>

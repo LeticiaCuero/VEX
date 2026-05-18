@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vex - Cadastro de Veículos</title>
+    <link rel="stylesheet" href="../style/sidebar.css">
+    <link rel="stylesheet" href="../style/home.css">
+    <script src="../script/sidebar.js" defer></script>
+</head>
+
+<body>
+    <div data-site-sidebar></div>
+    <main>
+        <div class="content">
+            <section class="register-box" id="register" aria-labelledby="register-title">
+                <h1 id="register-title">Cadastro de Veículos</h1>
+                <form method="post">
+                    <div class="field">
+                        <label for="placa">Placa do veículo</label>
+                        <input type="text" id="placa" name="placa" required>
+                    </div>
+                    <div class="field">
+                        <label for="modelo">Modelo do veículo</label>
+                        <input type="text" id="modelo" name="modelo" required>
+                    </div>
+                    <div class="field">
+                        <label for="marca">Marca do veículo</label>
+                        <input type="text" id="marca" name="marca" required>
+                    </div>
+                    <div class="field">
+                        <label for="cor">Cor do veículo</label>
+                        <input type="text" id="cor" name="cor" required>
+                    </div>
+                    <div class="field">
+                        <label for="cpf">CPF do proprietário</label>
+                        <input type="text" id="cpf" name="cpf" autocomplete="off" required>
+                    </div>
+                    <div class="field">
+                        <label for="tipo">Tipo de veículo</label>
+                        <select id="tipo" name="tipo" required>
+                            <option value="" selected disabled>Selecione</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="estadia">Tipo de estadia</label>
+                        <select id="estadia" name="estadia" required>
+                            <option value="" selected disabled>Selecione</option>
+                        </select>
+                    </div>
+                    <div class="field field--action">
+                        <button type="submit" class="btn-register">Registrar</button>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </main>
+</body>
+
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vex - Gestão para estacionamentos</title>
+    <link rel="stylesheet" href="style/index.css">
+</head>
+
+<body>
+    <header>
+        <div class="box-header">
+            <a class="logo" href="#home" aria-label="Ir para o início">
+                <img src="img/Vex.png" alt="Vex" class="logo-img">
+            </a>
+            <div class="navegation">
+                <nav aria-label="Navegação principal">
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#plans">Planos</a></li>
+                        <li><a href="#contact">Contato</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="acess">
+                <a class="btn-acess" href="view/login.html">
+                    Acessar
+                    <img class="arrow-acess" src="img/arrow1.svg" alt="">
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="content">
+            <section class="home" id="home">
+                <div class="title">
+                    <p>Gerenciando a sua empresa de forma simples <span class="destaque">e inteligente</span></p>
+                </div>
+                <div class="subtitle">
+                    <p>Sistema completo para controle, cadastro e dashboards em tempo real.</p>
+                </div>
+                <div class="box-gestao">
+                    <div class="icon-destaque">
+                        <img src="img/icon1.svg" alt="" class="icon-destaque">
+                    </div>
+                    <div class="title-destaque">
+                        <p>Gestão eficiente</p>
+                    </div>
+                </div>
+                <div class="box-dashboard">
+                    <div class="icon-destaque">
+                        <img src="img/icon2.svg" alt="" class="icon-destaque">
+                    </div>
+                    <div class="title-destaque">
+                        <p>Dashboards atualizados</p>
+                    </div>
+                </div>
+                <div class="btn-start">
+                    <a href="view/login.html">
+                        Começar agora
+                        <img class="arrow-start" src="img/arrow1.svg" alt="">
+                    </a>
+                </div>
+                <div class="ballon">
+                    <p>VEX gestão simples para o dia a dia!</p>
+                </div>
+                <div class="img-home">
+                    <img src="img/pc.png" alt="Dashboard Vex em um computador" class="img-home">
+                </div>
+            </section>
+
+            <section class="plans" id="plans">
+                <div class="title">
+                    <p>Planos <span class="destaque">acessíveis</span> para cada necessidade</p>
+                </div>
+                <div class="subtitle">
+                    <p>Escolha o melhor plano para a sua necessidade.</p>
+                </div>
+                <div class="plans-stage">
+                    <div class="plan-card plan-card--ghost" aria-hidden="true"></div>
+                    <button class="plans-nav plans-nav--left" type="button" aria-label="Plano anterior">
+                        <img src="img/arrow2.svg" alt="">
+                    </button>
+                    <article class="plan-card plan-card--featured">
+                        <p class="title-plan">Básico</p>
+                        <p class="price">R$ 00,00 <span class="mounth">/MÊS</span></p>
+                        <div class="plan-divider"></div>
+                        <ul class="plan-features" aria-label="Recursos do plano básico">
+                            <li><img src="img/check2.svg" alt=""><span class="sr-only">Registro de veículos</span></li>
+                            <li><img src="img/check2.svg" alt=""><span class="sr-only">Histórico em tempo real</span></li>
+                            <li><img src="img/check2.svg" alt=""><span class="sr-only">Dashboards interativos</span></li>
+                            <li><img src="img/check2.svg" alt=""><span class="sr-only">Cadastro de entrada e saída</span></li>
+                            <li><img src="img/check2.svg" alt=""><span class="sr-only">Controle diário</span></li>
+                            <li><img src="img/check2.svg" alt=""><span class="sr-only">Suporte básico</span></li>
+                        </ul>
+                        <button class="plan-cta" type="button">Assinar</button>
+                    </article>
+                    <button class="plans-nav plans-nav--right" type="button" aria-label="Próximo plano">
+                        <img src="img/arrow2.svg" alt="">
+                    </button>
+                    <div class="plan-card plan-card--ghost" aria-hidden="true"></div>
+                </div>
+            </section>
+
+            <section class="contact" id="contact">
+                <div class="title">
+                    <p>Gerenciamento para <span class="destaque">estacionamentos</span></p>
+                </div>
+                <div class="description">
+                    <p><img src="img/check2.svg" alt=""> Registros de entrada, saída e dados</p>
+                    <p><img src="img/check2.svg" alt=""> Dashboards individuais</p>
+                    <p><img src="img/check2.svg" alt=""> Liberdade de configurações em geral</p>
+                </div>
+                <div class="text-content">
+                    <p>
+                        Automação completa para substituir o tradicional <span class="destaque">papelzinho</span>,
+                        garantindo controle e principalmente segurança para o seu negócio.
+                    </p>
+                </div>
+                <div class="text-destaque">
+                    <p>Praticidade pensada para você</p>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-chip contact-chip--mail">
+                        <span class="contact-chip__icon" aria-hidden="true">@</span>
+                    </div>
+                    <div class="contact-chip contact-chip--whatsapp">
+                        <span class="contact-chip__icon" aria-hidden="true">W</span>
+                    </div>
+                    <form class="form">
+                        <input type="text" name="name" placeholder="Nome" aria-label="Nome" autocomplete="name">
+                        <input type="email" name="email" placeholder="E-mail" aria-label="E-mail" autocomplete="email">
+                        <input type="tel" name="phone" placeholder="Telefone" aria-label="Telefone" autocomplete="tel">
+                        <textarea name="message" placeholder="Texto..." aria-label="Mensagem"></textarea>
+                        <div class="btn-send">
+                            <button class="btn-send" type="submit">Enviar</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </main>
+</body>
+
+</html>

@@ -1,0 +1,318 @@
+.header-base-reset,
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-start: #eff8f9;
+    --bg-mid: #e6f2f4;
+    --bg-end: #d7eaee;
+    --surface: rgba(255, 255, 255, 0.74);
+    --text: #0a1b24;
+    --subtitle: #5e7380;
+    --destaque: #4d9ea9;
+    --button: linear-gradient(90deg, #5ad1e0 0%, #4cc0db 45%, #41d1a0 100%);
+    --shadow: 0 18px 40px rgba(19, 52, 61, 0.12);
+    --border: 1px solid rgba(255, 255, 255, 0.7);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    color: var(--text);
+    min-height: 100vh;
+    padding-left: 260px;
+    background:
+        radial-gradient(circle at top left, rgba(123, 224, 235, 0.32), transparent 35%),
+        radial-gradient(circle at 80% 18%, rgba(77, 158, 169, 0.18), transparent 28%),
+        linear-gradient(180deg, var(--bg-start) 0%, var(--bg-mid) 48%, var(--bg-end) 100%);
+    overflow-x: hidden;
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+button {
+    border: 0;
+    cursor: pointer;
+}
+
+main {
+    padding: 28px 0 44px;
+}
+
+.content {
+    width: min(1080px, calc(100% - 32px));
+    margin: 0 auto;
+}
+
+.site-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 50;
+    width: 260px;
+    height: 100vh;
+    backdrop-filter: blur(16px);
+    background: rgba(239, 248, 249, 0.72);
+    border-right: 1px solid rgba(255, 255, 255, 0.65);
+    box-shadow: 14px 0 34px rgba(19, 52, 61, 0.08);
+}
+
+.box-header {
+    height: 100%;
+    padding: 28px 22px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 34px;
+}
+
+.logo {
+    display: inline-flex;
+    align-items: center;
+}
+
+.logo-img {
+    width: 104px;
+    height: auto;
+}
+
+.navegation {
+    width: 100%;
+}
+
+.navegation nav ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+}
+
+.navegation nav a {
+    display: flex;
+    align-items: center;
+    min-height: 46px;
+    padding: 0 16px;
+    border-radius: 14px;
+    color: #5e7380;
+    font-size: 0.96rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.2s ease, transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.navegation nav a:hover {
+    color: #4d9ea9;
+    background: rgba(255, 255, 255, 0.72);
+    box-shadow: 0 8px 18px rgba(19, 52, 61, 0.08);
+    transform: translateX(2px);
+}
+
+.logout {
+    width: 100%;
+    margin-top: auto;
+}
+
+.btn-logout {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    padding: 0;
+    border-radius: 50%;
+    color: #4d9ea9;
+    font-weight: 700;
+    text-decoration: none;
+    background: transparent;
+    box-shadow: none;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.btn-logout img {
+    width: 24px;
+    height: 24px;
+    opacity: 0.72;
+}
+
+.btn-logout:hover {
+    transform: translateY(-2px);
+    box-shadow: none;
+}
+
+.btn-logout:hover img {
+    opacity: 1;
+}
+
+.logout-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+.logout-modal.is-open {
+    display: flex;
+}
+
+.logout-modal__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 27, 36, 0.38);
+    backdrop-filter: blur(8px);
+}
+
+.logout-modal__box {
+    position: relative;
+    z-index: 1;
+    width: min(100%, 380px);
+    padding: 28px;
+    border: 1px solid rgba(255, 255, 255, 0.72);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 24px 54px rgba(10, 27, 36, 0.18);
+}
+
+.logout-modal__box h2 {
+    margin-bottom: 8px;
+    color: #0a1b24;
+    font-size: 1.35rem;
+    line-height: 1.2;
+}
+
+.logout-modal__box p {
+    color: #5e7380;
+    font-size: 0.96rem;
+    line-height: 1.5;
+}
+
+.logout-modal__actions {
+    margin-top: 24px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.logout-modal__cancel,
+.logout-modal__confirm {
+    min-height: 42px;
+    padding: 0 18px;
+    border-radius: 999px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.logout-modal__cancel {
+    color: #5e7380;
+    background: rgba(232, 244, 246, 0.94);
+}
+
+.logout-modal__confirm {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    background: linear-gradient(90deg, #5ad1e0 0%, #4cc0db 45%, #41d1a0 100%);
+    box-shadow: 0 12px 24px rgba(77, 198, 220, 0.24);
+}
+
+@media (max-width: 980px) {
+    body {
+        padding-left: 0;
+        padding-top: 146px;
+    }
+
+    main {
+        padding-top: 20px;
+    }
+
+    .site-sidebar {
+        width: 100%;
+        height: auto;
+        border-right: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.65);
+        box-shadow: 0 12px 28px rgba(19, 52, 61, 0.08);
+    }
+
+    .box-header {
+        width: min(100%, calc(100% - 32px));
+        height: auto;
+        min-height: 118px;
+        margin: 0 auto;
+        padding: 14px 0;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 18px;
+    }
+
+    .navegation {
+        width: auto;
+    }
+
+    .navegation nav ul {
+        flex-direction: row;
+        align-items: center;
+        gap: 18px;
+        flex-wrap: wrap;
+    }
+
+    .navegation nav a {
+        min-height: 38px;
+        padding: 0 10px;
+    }
+
+    .logout {
+        width: auto;
+        margin-top: 0;
+    }
+
+    .btn-logout {
+        width: auto;
+        min-width: 46px;
+    }
+}
+
+@media (max-width: 520px) {
+    body {
+        padding-top: 214px;
+    }
+
+    .box-header {
+        width: min(100%, calc(100% - 20px));
+        gap: 14px;
+        align-items: center;
+    }
+
+    .logo-img {
+        width: 78px;
+    }
+
+    .btn-logout {
+        width: 46px;
+    }
+
+    .navegation {
+        width: 100%;
+    }
+
+    .navegation nav ul {
+        justify-content: space-between;
+        width: 100%;
+        gap: 14px 16px;
+    }
+}

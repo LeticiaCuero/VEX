@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vex - Configurações</title>
+    <link rel="stylesheet" href="../style/sidebar.css">
+    <link rel="stylesheet" href="../style/config.css">
+    <script src="../script/sidebar.js" defer></script>
+</head>
+
+<body>
+    <div data-site-sidebar></div>
+    <main>
+        <div class="content">
+            <form class="tax-form" method="post">
+                <h1>Configurações de Taxas</h1>
+                <div class="field">
+                    <label for="vehicle-type">Tipo de veículo</label>
+                    <input type="text" name="vehicle-type" id="vehicle-type" placeholder="Ex.: Carro">
+                </div>
+                <div class="field">
+                    <label for="stay-type">Tipo de estadia</label>
+                    <input type="text" name="stay-type" id="stay-type" placeholder="Ex.: Mensal">
+                </div>
+                <div class="field">
+                    <label for="value">Valor</label>
+                    <input type="text" name="value" id="value" placeholder="R$ 0,00">
+                </div>
+                <button type="submit">Salvar</button>
+            </form>
+
+            <section class="config-list" aria-labelledby="config-title">
+                <h2 id="config-title">Configurações Atuais</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tipo de Veículo</th>
+                            <th>Tipo de Estadia</th>
+                            <th>Valor</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="config-table">
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </main>
+</body>
+
+</html>

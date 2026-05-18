@@ -1,0 +1,222 @@
+.content {
+    display: grid;
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+    gap: 18px;
+    align-items: start;
+}
+
+.tax-form {
+    width: 100%;
+    margin: 0;
+    padding: 26px;
+    display: grid;
+    gap: 14px;
+    border-radius: 28px;
+    border: var(--border);
+    background: var(--surface);
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(14px);
+}
+
+.tax-form h1 {
+    margin-bottom: 4px;
+    color: #18313b;
+    font-size: clamp(1.5rem, 2.8vw, 2.2rem);
+    line-height: 1.05;
+    font-weight: 800;
+    letter-spacing: 0;
+}
+
+.field {
+    display: grid;
+    gap: 6px;
+}
+
+.field--full {
+    grid-column: 1 / -1;
+}
+
+.tax-form label {
+    color: #18313b;
+    font-size: 0.92rem;
+    font-weight: 700;
+}
+
+.tax-form input {
+    width: 100%;
+    min-height: 52px;
+    padding: 0.95rem 1rem;
+    border-radius: 14px;
+    border: 1px solid rgba(113, 187, 201, 0.25);
+    background: rgba(244, 249, 250, 0.9);
+    color: #34464e;
+    outline: none;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72), 0 2px 6px rgba(19, 52, 61, 0.06);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.tax-form input::placeholder {
+    color: #9baeb6;
+}
+
+.tax-form input:focus {
+    border-color: rgba(77, 158, 169, 0.55);
+    box-shadow: 0 0 0 4px rgba(77, 158, 169, 0.12);
+}
+
+.tax-form input:hover {
+    transform: translateY(-1px);
+}
+
+.tax-form button {
+    width: min(220px, 100%);
+    margin-top: 4px;
+    padding: 0.95rem 1.4rem;
+    border-radius: 999px;
+    color: #fff;
+    font-weight: 700;
+    background: var(--button);
+    box-shadow: 0 14px 30px rgba(77, 198, 220, 0.28);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.tax-form button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 30px rgba(19, 52, 61, 0.16);
+}
+
+.config-list {
+    padding: 26px;
+    border-radius: 28px;
+    border: var(--border);
+    background: rgba(255, 255, 255, 0.7);
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(14px);
+    overflow: hidden;
+}
+
+.config-list h2 {
+    color: #18313b;
+    font-size: clamp(1.2rem, 2vw, 1.55rem);
+    line-height: 1.1;
+    font-weight: 800;
+    letter-spacing: 0;
+    margin-bottom: 16px;
+}
+
+.config-list table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 100%;
+}
+
+.config-list thead th {
+    padding: 14px 16px;
+    text-align: left;
+    color: #2b4a56;
+    font-size: 0.86rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(113, 187, 201, 0.18);
+}
+
+.config-list tbody td {
+    padding: 15px 16px;
+    color: #34464e;
+    border-bottom: 1px solid rgba(113, 187, 201, 0.12);
+    vertical-align: middle;
+}
+
+.config-list tbody tr {
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.config-list tbody tr:hover {
+    background: rgba(90, 209, 224, 0.06);
+}
+
+.config-list tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.config-list tbody:empty::before {
+    content: "Nenhuma configuração salva ainda. Use o formulário ao lado para adicionar taxas.";
+    display: block;
+    padding: 18px 16px;
+    color: var(--subtitle);
+    line-height: 1.6;
+    background: rgba(248, 252, 253, 0.8);
+    border: 1px dashed rgba(113, 187, 201, 0.22);
+    border-radius: 16px;
+}
+
+.config-list button,
+.config-list a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 38px;
+    padding: 0.55rem 0.9rem;
+    border-radius: 999px;
+    font-weight: 700;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+.config-list button:hover,
+.config-list a:hover {
+    transform: translateY(-1px);
+}
+
+.config-list button {
+    color: #fff;
+    background: var(--button);
+    box-shadow: 0 10px 20px rgba(77, 198, 220, 0.22);
+}
+
+.config-list button + button {
+    margin-left: 8px;
+}
+
+.config-list .is-secondary,
+.config-list a {
+    color: #2f6b7b;
+    background: rgba(90, 209, 224, 0.12);
+    box-shadow: none;
+}
+
+@media (max-width: 760px) {
+    main {
+        padding-top: 22px;
+    }
+
+    .content {
+        grid-template-columns: 1fr;
+    }
+
+    .tax-form {
+        padding: 18px;
+        border-radius: 22px;
+    }
+
+    .config-list {
+        padding: 18px;
+        border-radius: 22px;
+        overflow-x: auto;
+    }
+}
+
+@media (max-width: 520px) {
+    .content {
+        width: min(100%, calc(100% - 20px));
+    }
+
+    .tax-form button {
+        width: 100%;
+    }
+
+    .config-list thead th,
+    .config-list tbody td {
+        padding-inline: 12px;
+    }
+}
