@@ -1,8 +1,9 @@
 const express = require('express');
 const { supabaseAdmin } = require('../config/supabase');
-const { asyncHandler, normalizePlate } = require('../utils/http');
 
 const router = express.Router();
+const asyncHandler = (handler) => (req, res, next) => Promise.resolve(handler(req, res, next)).catch(next);
+const normalizePlate = (value) => String(value || '').trim().toUpperCase();
 
 router.get('/', asyncHandler(async (req, res) => {
   const { status } = req.query;

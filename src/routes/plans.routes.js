@@ -1,8 +1,8 @@
 const express = require('express');
 const { supabaseAdmin } = require('../config/supabase');
-const { asyncHandler } = require('../utils/http');
 
 const router = express.Router();
+const asyncHandler = (handler) => (req, res, next) => Promise.resolve(handler(req, res, next)).catch(next);
 
 router.get('/', asyncHandler(async (_req, res) => {
   const { data, error } = await supabaseAdmin

@@ -1,4 +1,4 @@
-const VEX_API_BASE_URL = window.VEX_API_BASE_URL || 'http://localhost:3333';
+const VEX_API_BASE_URL = window.VEX_API_BASE_URL || '';
 
 function getToken() {
     return localStorage.getItem('vex_access_token');

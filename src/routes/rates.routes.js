@@ -1,8 +1,22 @@
 const express = require('express');
 const { supabaseAdmin } = require('../config/supabase');
-const { asyncHandler, parseMoney } = require('../utils/http');
 
 const router = express.Router();
+const asyncHandler = (handler) => (req, res, next) => Promise.resolve(handler(req, res, next)).catch(next);
+
+function parseMoney(value) {
+  if (typeof value === 'number') {
+    return value;
+  }
+
+  const normalized = String(value || '')
+    .replace(/[^\d,.-]/g, '')
+    .replace(/\./g, '')
+    .replace(',', '.');
+
+  const parsed = Number(normalized);
+  return Number.isFinite(parsed) ? parsed : NaN;
+}
 
 router.get('/', asyncHandler(async (req, res) => {
   const { data, error } = await supabaseAdmin

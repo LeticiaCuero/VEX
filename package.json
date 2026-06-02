@@ -1,11 +1,11 @@
 {
-  "name": "vex-backend",
+  "name": "vex",
   "version": "1.0.0",
-  "description": "API do Vex para gestao de estacionamentos com Supabase.",
-  "main": "src/server.js",
+  "description": "Vex com frontend estatico e API serverless para Supabase.",
+  "main": "server.js",
   "scripts": {
-    "dev": "node --watch src/server.js",
-    "start": "node src/server.js"
+    "dev": "node --watch server.js",
+    "start": "node server.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.4",

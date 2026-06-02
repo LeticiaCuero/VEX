@@ -1,8 +1,8 @@
 const express = require('express');
 const { supabaseAuth } = require('../config/supabase');
-const { asyncHandler } = require('../utils/http');
 
 const router = express.Router();
+const asyncHandler = (handler) => (req, res, next) => Promise.resolve(handler(req, res, next)).catch(next);
 
 router.post('/login', asyncHandler(async (req, res) => {
   const { username, password } = req.body;
