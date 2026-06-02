@@ -33,6 +33,7 @@ taxForm?.addEventListener('submit', async (event) => {
 
     const button = taxForm.querySelector('button[type="submit"]');
     const formData = new FormData(taxForm);
+
     const payload = {
         vehicleType: formData.get('vehicle-type'),
         stayType: formData.get('stay-type'),
@@ -65,19 +66,33 @@ configTable?.addEventListener('click', async (event) => {
     const deleteButton = event.target.closest('[data-delete-id]');
 
     if (editButton) {
-        const rate = JSON.parse(editButton.closest('tr').dataset.rate);
+        const tr = editButton.closest('tr');
+        const rate = JSON.parse(tr.dataset.rate);
+
         editingId = rate.id;
         taxForm.elements['vehicle-type'].value = rate.vehicle_type;
         taxForm.elements['stay-type'].value = rate.stay_type;
-        taxForm.elements.value.value = formatCurrency(rate.value);
-        taxForm.elements['additional-hour'].value = formatCurrency(rate.additional || 0);
+        taxForm.elements.value.value = rate.value;
+        taxForm.elements['additional-hour'].value = rate.additional || 0;
+
         taxForm.querySelector('button[type="submit"]').textContent = 'Atualizar';
+        return;
     }
 
-    if (deleteButton && confirm('Excluir esta configuracao?')) {
-        await apiFetch(`/api/rates/${deleteButton.dataset.deleteId}`, { method: 'DELETE' });
-        await loadRates();
+    if (deleteButton) {
+        const id = deleteButton.dataset.deleteId;
+        if (!id) return;
+
+        if (!confirm('Excluir esta configuracao?')) return;
+
+        try {
+            await apiFetch(`/api/rates/${id}`, { method: 'DELETE' });
+            await loadRates();
+        } catch (error) {
+            alert(error.message);
+        }
     }
 });
 
 loadRates().catch((error) => alert(error.message));
+
