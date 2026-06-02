@@ -3,6 +3,8 @@ requireSession();
 const vehicleForm = document.querySelector('.register-box form');
 const vehicleTypeSelect = document.querySelector('#tipo');
 const stayTypeSelect = document.querySelector('#estadia');
+const ratePreview = document.querySelector('#rate-preview');
+let rateCatalog = [];
 
 function fillSelect(select, values) {
     const placeholder = select.querySelector('option');
@@ -17,11 +19,65 @@ function fillSelect(select, values) {
     });
 }
 
-async function loadRateOptions() {
-    const rates = await apiFetch('/api/rates');
-    fillSelect(vehicleTypeSelect, [...new Set(rates.map((rate) => rate.vehicle_type))]);
-    fillSelect(stayTypeSelect, [...new Set(rates.map((rate) => rate.stay_type))]);
+function findRate(vehicleType, stayType) {
+    return rateCatalog.find((rate) => rate.vehicle_type === vehicleType && rate.stay_type === stayType);
 }
+
+function refreshRatePreview() {
+    if (!ratePreview) {
+        return;
+    }
+
+    const selectedVehicleType = vehicleTypeSelect.value;
+    const selectedStayType = stayTypeSelect.value;
+
+    if (!selectedVehicleType || !selectedStayType) {
+        ratePreview.textContent = 'Selecione tipo de veiculo e estadia para ver os valores.';
+        return;
+    }
+
+    const selectedRate = findRate(selectedVehicleType, selectedStayType);
+
+    if (!selectedRate) {
+        ratePreview.textContent = 'Nao existe tarifa cadastrada para essa combinacao.';
+        return;
+    }
+
+    ratePreview.textContent = `Valor inicial: ${formatCurrency(selectedRate.value)} | Adicional por hora: ${formatCurrency(selectedRate.additional || 0)}`;
+}
+
+function refreshStayTypeOptions() {
+    const selectedVehicleType = vehicleTypeSelect.value;
+
+    if (!selectedVehicleType) {
+        fillSelect(stayTypeSelect, []);
+        stayTypeSelect.value = '';
+        refreshRatePreview();
+        return;
+    }
+
+    const availableStayTypes = [...new Set(
+        rateCatalog
+            .filter((rate) => rate.vehicle_type === selectedVehicleType)
+            .map((rate) => rate.stay_type)
+    )];
+
+    fillSelect(stayTypeSelect, availableStayTypes);
+    stayTypeSelect.value = '';
+    refreshRatePreview();
+}
+
+async function loadRateOptions() {
+    rateCatalog = await apiFetch('/api/rates');
+
+    const vehicleTypes = [...new Set(rateCatalog.map((rate) => rate.vehicle_type))];
+    fillSelect(vehicleTypeSelect, vehicleTypes);
+    fillSelect(stayTypeSelect, []);
+    refreshRatePreview();
+}
+
+vehicleTypeSelect?.addEventListener('change', refreshStayTypeOptions);
+stayTypeSelect?.addEventListener('change', refreshRatePreview);
 
 vehicleForm?.addEventListener('submit', async (event) => {
     event.preventDefault();

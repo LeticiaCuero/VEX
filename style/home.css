@@ -122,6 +122,19 @@ main {
     box-shadow: 0 14px 30px rgba(77, 198, 220, 0.28);
     transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
+.rate-preview {
+    margin: 0;
+    min-height: 52px;
+    display: flex;
+    align-items: center;
+    padding: 0.9rem 1rem;
+    border: 1px dashed rgba(113, 187, 201, 0.35);
+    border-radius: 14px;
+    background: rgba(244, 249, 250, 0.9);
+    color: #2f5f6b;
+    font-size: 0.93rem;
+    line-height: 1.4;
+}
 
 .btn-register:hover {
     transform: translateY(-2px);

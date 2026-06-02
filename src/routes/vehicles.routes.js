@@ -37,6 +37,19 @@ router.post('/', asyncHandler(async (req, res) => {
     return res.status(400).json({ message: 'Preencha todos os dados do veiculo.' });
   }
 
+  const { data: rate, error: rateError } = await supabaseAdmin
+    .from('rates')
+    .select('id')
+    .eq('vehicle_type', payload.vehicle_type)
+    .eq('stay_type', payload.stay_type)
+    .maybeSingle();
+
+  if (rateError) throw rateError;
+
+  if (!rate) {
+    return res.status(400).json({ message: 'Nao existe tarifa configurada para esse tipo de veiculo e estadia.' });
+  }
+
   const { data: activeVehicle, error: activeError } = await supabaseAdmin
     .from('vehicles')
     .select('id')

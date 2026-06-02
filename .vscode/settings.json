@@ -19,6 +19,14 @@
         "/^node --check script/config\\.js$/": {
             "approve": true,
             "matchCommandLine": true
+        },
+        "/^node --check script/home\\.js$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^node --check src/routes/vehicles\\.routes\\.js$/": {
+            "approve": true,
+            "matchCommandLine": true
         }
     }
 }
