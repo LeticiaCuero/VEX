@@ -24,9 +24,7 @@ function findRate(vehicleType, stayType) {
 }
 
 function refreshRatePreview() {
-    if (!ratePreview) {
-        return;
-    }
+    if (!ratePreview) return;
 
     const selectedVehicleType = vehicleTypeSelect.value;
     const selectedStayType = stayTypeSelect.value;
@@ -112,4 +110,58 @@ vehicleForm?.addEventListener('submit', async (event) => {
     }
 });
 
+function renderPendingVehicles(vehicles) {
+    const tbody = document.querySelector('#pending-table');
+    if (!tbody) return;
+
+    tbody.innerHTML = '';
+
+    vehicles.forEach((vehicle) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${escapeHtml(vehicle.plate)}</td>
+            <td>${escapeHtml(vehicle.model)}</td>
+            <td>${escapeHtml(vehicle.brand)}</td>
+            <td>${escapeHtml(vehicle.color)}</td>
+            <td>${escapeHtml(vehicle.owner_cpf)}</td>
+            <td>${escapeHtml(vehicle.vehicle_type)}</td>
+            <td>${formatDateTime(vehicle.entry_at)}</td>
+            <td>
+                <button type="button" data-exit-id="${vehicle.id}">Finalizar</button>
+            </td>
+        `;
+        tbody.appendChild(row);
+    });
+}
+
+async function loadPendingVehicles() {
+    // Somente veículos em aberto (sem saída)
+    const vehicles = await apiFetch('/api/vehicles?status=active');
+    renderPendingVehicles(vehicles);
+}
+
+function wirePendingTable() {
+    const tbody = document.querySelector('#pending-table');
+    if (!tbody) return;
+
+    tbody.addEventListener('click', async (event) => {
+        const button = event.target.closest('[data-exit-id]');
+        if (!button) return;
+
+        button.disabled = true;
+
+        try {
+            await apiFetch(`/api/vehicles/${button.dataset.exitId}/exit`, { method: 'PATCH' });
+            await loadPendingVehicles();
+        } catch (error) {
+            alert(error.message);
+            button.disabled = false;
+        }
+    });
+}
+
 loadRateOptions().catch((error) => alert(error.message));
+loadPendingVehicles()
+    .then(() => wirePendingTable())
+    .catch((error) => alert(error.message));
+
