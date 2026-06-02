@@ -1,10 +1,11 @@
 .content {
-    display: grid;
-
-    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+    /* Coloca o formulário e a tabela em coluna (sem sobreposição) */
+    display: flex;
+    flex-direction: column;
     gap: 18px;
-    align-items: start;
+    align-items: stretch;
 }
+
 
 .tax-form {
     width: 100%;
@@ -213,8 +214,9 @@
     }
 
     .content {
-        grid-template-columns: 1fr;
+        /* já está em coluna (flex); mantém sem sobreposição */
     }
+
 
     .tax-form {
         padding: 18px;
