@@ -14,6 +14,7 @@ function renderRates(rates) {
             <td>${escapeHtml(rate.vehicle_type)}</td>
             <td>${escapeHtml(rate.stay_type)}</td>
             <td>${formatCurrency(rate.value)}</td>
+            <td>${formatCurrency(rate.additional || 0)}</td>
             <td>
                 <button type="button" class="is-secondary" data-edit-id="${rate.id}">Editar</button>
                 <button type="button" data-delete-id="${rate.id}">Excluir</button>
@@ -35,7 +36,8 @@ taxForm?.addEventListener('submit', async (event) => {
     const payload = {
         vehicleType: formData.get('vehicle-type'),
         stayType: formData.get('stay-type'),
-        value: formData.get('value')
+        value: formData.get('value'),
+        additional: formData.get('additional-hour')
     };
 
     button.disabled = true;
@@ -68,6 +70,7 @@ configTable?.addEventListener('click', async (event) => {
         taxForm.elements['vehicle-type'].value = rate.vehicle_type;
         taxForm.elements['stay-type'].value = rate.stay_type;
         taxForm.elements.value.value = formatCurrency(rate.value);
+        taxForm.elements['additional-hour'].value = formatCurrency(rate.additional || 0);
         taxForm.querySelector('button[type="submit"]').textContent = 'Atualizar';
     }
 

@@ -15,6 +15,10 @@
         "/^node --check src/routes/dashboard\\.routes\\.js$/": {
             "approve": true,
             "matchCommandLine": true
+        },
+        "/^node --check script/config\\.js$/": {
+            "approve": true,
+            "matchCommandLine": true
         }
     }
 }

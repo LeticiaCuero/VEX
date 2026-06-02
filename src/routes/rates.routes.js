@@ -21,7 +21,7 @@ function parseMoney(value) {
 router.get('/', asyncHandler(async (req, res) => {
   const { data, error } = await supabaseAdmin
     .from('rates')
-    .select('id, vehicle_type, stay_type, value, created_at, updated_at')
+    .select('id, vehicle_type, stay_type, value, additional, created_at, updated_at')
     .order('vehicle_type', { ascending: true })
     .order('stay_type', { ascending: true });
 
@@ -33,15 +33,16 @@ router.post('/', asyncHandler(async (req, res) => {
   const vehicleType = String(req.body.vehicleType || '').trim();
   const stayType = String(req.body.stayType || '').trim();
   const value = parseMoney(req.body.value);
+  const additional = parseMoney(req.body.additional);
 
-  if (!vehicleType || !stayType || !Number.isFinite(value) || value < 0) {
-    return res.status(400).json({ message: 'Informe tipo de veiculo, tipo de estadia e valor valido.' });
+  if (!vehicleType || !stayType || !Number.isFinite(value) || value < 0 || !Number.isFinite(additional) || additional < 0) {
+    return res.status(400).json({ message: 'Informe tipo de veiculo, tipo de estadia, valor e adicional validos.' });
   }
 
   const { data, error } = await supabaseAdmin
     .from('rates')
-    .insert({ vehicle_type: vehicleType, stay_type: stayType, value })
-    .select('id, vehicle_type, stay_type, value, created_at, updated_at')
+    .insert({ vehicle_type: vehicleType, stay_type: stayType, value, additional })
+    .select('id, vehicle_type, stay_type, value, additional, created_at, updated_at')
     .single();
 
   if (error) {
@@ -58,16 +59,17 @@ router.put('/:id', asyncHandler(async (req, res) => {
   const vehicleType = String(req.body.vehicleType || '').trim();
   const stayType = String(req.body.stayType || '').trim();
   const value = parseMoney(req.body.value);
+  const additional = parseMoney(req.body.additional);
 
-  if (!vehicleType || !stayType || !Number.isFinite(value) || value < 0) {
-    return res.status(400).json({ message: 'Informe tipo de veiculo, tipo de estadia e valor valido.' });
+  if (!vehicleType || !stayType || !Number.isFinite(value) || value < 0 || !Number.isFinite(additional) || additional < 0) {
+    return res.status(400).json({ message: 'Informe tipo de veiculo, tipo de estadia, valor e adicional validos.' });
   }
 
   const { data, error } = await supabaseAdmin
     .from('rates')
-    .update({ vehicle_type: vehicleType, stay_type: stayType, value, updated_at: new Date().toISOString() })
+    .update({ vehicle_type: vehicleType, stay_type: stayType, value, additional, updated_at: new Date().toISOString() })
     .eq('id', req.params.id)
-    .select('id, vehicle_type, stay_type, value, created_at, updated_at')
+    .select('id, vehicle_type, stay_type, value, additional, created_at, updated_at')
     .single();
 
   if (error) throw error;

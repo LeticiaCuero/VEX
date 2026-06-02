@@ -110,6 +110,11 @@
     min-width: 100%;
 }
 
+.config-list thead th:nth-child(4),
+.config-list tbody td:nth-child(4) {
+    min-width: 210px;
+}
+
 .config-list thead th {
     padding: 14px 16px;
     text-align: left;
