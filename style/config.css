@@ -1,5 +1,6 @@
 .content {
     display: grid;
+
     grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
     gap: 18px;
     align-items: start;
@@ -113,8 +114,10 @@
 .config-list table {
     width: 100%;
     border-collapse: collapse;
-    table-layout: auto;
+    /* Evita que a largura das colunas “desande” conforme o conteúdo */
+    table-layout: fixed;
 }
+
 
 .config-list thead th {
     padding: 14px 16px;
@@ -133,9 +136,10 @@
     color: #34464e;
     border-bottom: 1px solid rgba(113, 187, 201, 0.12);
     vertical-align: middle;
-    white-space: normal;
+
     word-break: normal;
-    overflow-wrap: anywhere;
+    /* Evita quebra “forçada” no meio das palavras */
+    overflow-wrap: normal;
 }
 
 .config-list tbody tr {
@@ -161,12 +165,11 @@
 }
 
 .config-list td:last-child {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    align-items: center;
-    white-space: normal;
+    /* Mantém o layout da linha da tabela estável */
+    white-space: nowrap;
+    vertical-align: middle;
 }
+
 
 .config-list button,
 .config-list a {
