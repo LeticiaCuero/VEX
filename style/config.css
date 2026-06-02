@@ -114,10 +114,15 @@
 .config-list table {
     width: 100%;
     border-collapse: collapse;
-    /* Evita que a largura das colunas “desande” conforme o conteúdo */
     table-layout: fixed;
 }
 
+/* Distribuição melhor das colunas, deixando a última (Ações) com largura suficiente */
+.config-list table colgroup col:last-child,
+.config-list td:last-child,
+.config-list th:last-child {
+    width: 260px;
+}
 
 .config-list thead th {
     padding: 14px 16px;
@@ -138,7 +143,6 @@
     vertical-align: middle;
 
     word-break: normal;
-    /* Evita quebra “forçada” no meio das palavras */
     overflow-wrap: normal;
 }
 
@@ -165,7 +169,6 @@
 }
 
 .config-list td:last-child {
-    /* Mantém o layout da linha da tabela estável */
     white-space: nowrap;
     vertical-align: middle;
 }
