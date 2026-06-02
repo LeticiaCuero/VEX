@@ -10,8 +10,8 @@ router.get('/', asyncHandler(async (req, res) => {
   let query = supabaseAdmin
     .from('vehicles')
     .select('id, plate, model, brand, color, owner_cpf, vehicle_type, stay_type, entry_at, exit_at, created_at')
-    .eq('user_id', req.user.id)
     .order('entry_at', { ascending: false });
+
 
   if (status === 'active') query = query.is('exit_at', null);
   if (status === 'closed') query = query.not('exit_at', 'is', null);
@@ -53,10 +53,10 @@ router.post('/', asyncHandler(async (req, res) => {
   const { data: activeVehicle, error: activeError } = await supabaseAdmin
     .from('vehicles')
     .select('id')
-    .eq('user_id', req.user.id)
     .eq('plate', payload.plate)
     .is('exit_at', null)
     .maybeSingle();
+
 
   if (activeError) throw activeError;
 
@@ -66,8 +66,9 @@ router.post('/', asyncHandler(async (req, res) => {
 
   const { data, error } = await supabaseAdmin
     .from('vehicles')
-    .insert({ ...payload, user_id: req.user.id })
+    .insert({ ...payload })
     .select('id, plate, model, brand, color, owner_cpf, vehicle_type, stay_type, entry_at, exit_at')
+
     .single();
 
   if (error) throw error;
@@ -79,8 +80,8 @@ router.patch('/:id/exit', asyncHandler(async (req, res) => {
     .from('vehicles')
     .update({ exit_at: new Date().toISOString() })
     .eq('id', req.params.id)
-    .eq('user_id', req.user.id)
     .is('exit_at', null)
+
     .select('id, plate, model, brand, color, owner_cpf, vehicle_type, stay_type, entry_at, exit_at')
     .single();
 
