@@ -92,7 +92,8 @@
     background: rgba(255, 255, 255, 0.7);
     box-shadow: var(--shadow);
     backdrop-filter: blur(14px);
-    overflow: hidden;
+    overflow-x: auto;
+    overflow-y: hidden;
 }
 
 .config-list h2 {
@@ -107,12 +108,18 @@
 .config-list table {
     width: 100%;
     border-collapse: collapse;
-    min-width: 100%;
+    min-width: 920px;
 }
 
 .config-list thead th:nth-child(4),
 .config-list tbody td:nth-child(4) {
     min-width: 210px;
+}
+
+.config-list thead th:nth-child(5),
+.config-list tbody td:nth-child(5) {
+    min-width: 180px;
+    white-space: nowrap;
 }
 
 .config-list thead th {
