@@ -98,6 +98,7 @@
     background: rgba(255, 255, 255, 0.7);
     box-shadow: var(--shadow);
     backdrop-filter: blur(14px);
+    overflow: hidden;
 }
 
 .config-list h2 {
@@ -112,7 +113,7 @@
 .config-list table {
     width: 100%;
     border-collapse: collapse;
-    table-layout: fixed;
+    table-layout: auto;
 }
 
 .config-list thead th {
@@ -124,6 +125,7 @@
     letter-spacing: 0.02em;
     text-transform: uppercase;
     border-bottom: 1px solid rgba(113, 187, 201, 0.18);
+    white-space: normal;
 }
 
 .config-list tbody td {
@@ -131,8 +133,9 @@
     color: #34464e;
     border-bottom: 1px solid rgba(113, 187, 201, 0.12);
     vertical-align: middle;
-    overflow-wrap: break-word;
-    word-break: break-word;
+    white-space: normal;
+    word-break: normal;
+    overflow-wrap: anywhere;
 }
 
 .config-list tbody tr {
@@ -148,7 +151,6 @@
 }
 
 .config-list tbody:empty::before {
-    content: "Nenhuma configuração salva ainda. Use o formulário ao lado para adicionar taxas.";
     display: block;
     padding: 18px 16px;
     color: var(--subtitle);
@@ -163,6 +165,7 @@
     flex-wrap: wrap;
     gap: 8px;
     align-items: center;
+    white-space: normal;
 }
 
 .config-list button,
@@ -230,5 +233,10 @@
     .config-list thead th,
     .config-list tbody td {
         padding-inline: 12px;
+        font-size: 0.82rem;
+    }
+
+    .config-list td:last-child {
+        gap: 6px;
     }
 }
