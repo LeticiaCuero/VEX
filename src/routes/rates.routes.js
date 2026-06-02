@@ -22,7 +22,6 @@ router.get('/', asyncHandler(async (req, res) => {
   const { data, error } = await supabaseAdmin
     .from('rates')
     .select('id, vehicle_type, stay_type, value, created_at, updated_at')
-    .eq('user_id', req.user.id)
     .order('vehicle_type', { ascending: true })
     .order('stay_type', { ascending: true });
 
@@ -41,7 +40,7 @@ router.post('/', asyncHandler(async (req, res) => {
 
   const { data, error } = await supabaseAdmin
     .from('rates')
-    .insert({ user_id: req.user.id, vehicle_type: vehicleType, stay_type: stayType, value })
+    .insert({ vehicle_type: vehicleType, stay_type: stayType, value })
     .select('id, vehicle_type, stay_type, value, created_at, updated_at')
     .single();
 
@@ -68,7 +67,6 @@ router.put('/:id', asyncHandler(async (req, res) => {
     .from('rates')
     .update({ vehicle_type: vehicleType, stay_type: stayType, value, updated_at: new Date().toISOString() })
     .eq('id', req.params.id)
-    .eq('user_id', req.user.id)
     .select('id, vehicle_type, stay_type, value, created_at, updated_at')
     .single();
 
@@ -80,8 +78,7 @@ router.delete('/:id', asyncHandler(async (req, res) => {
   const { error } = await supabaseAdmin
     .from('rates')
     .delete()
-    .eq('id', req.params.id)
-    .eq('user_id', req.user.id);
+    .eq('id', req.params.id);
 
   if (error) throw error;
   return res.status(204).send();

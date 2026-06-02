@@ -17,8 +17,7 @@ router.get('/', asyncHandler(async (req, res) => {
 
   const { data: rates, error: ratesError } = await supabaseAdmin
     .from('rates')
-    .select('vehicle_type, stay_type, value')
-    .eq('user_id', req.user.id);
+    .select('vehicle_type, stay_type, value');
 
   if (ratesError) throw ratesError;
 

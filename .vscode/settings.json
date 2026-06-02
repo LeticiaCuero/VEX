@@ -7,6 +7,14 @@
         "/^node --check script/api\\.js$/": {
             "approve": true,
             "matchCommandLine": true
+        },
+        "/^node --check src/routes/rates\\.routes\\.js$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^node --check src/routes/dashboard\\.routes\\.js$/": {
+            "approve": true,
+            "matchCommandLine": true
         }
     }
 }
