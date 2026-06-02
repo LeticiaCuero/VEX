@@ -3,6 +3,10 @@
         "/^node --check server\\.js$/": {
             "approve": true,
             "matchCommandLine": true
+        },
+        "/^node --check script/api\\.js$/": {
+            "approve": true,
+            "matchCommandLine": true
         }
     }
 }

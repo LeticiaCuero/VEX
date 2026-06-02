@@ -1,19 +1,37 @@
-const VEX_API_BASE_URL = window.VEX_API_BASE_URL || '';
+function resolveApiBaseUrl() {
+    const configuredBaseUrl = typeof window.VEX_API_BASE_URL === 'string' ? window.VEX_API_BASE_URL.trim() : '';
+
+    if (configuredBaseUrl) {
+        try {
+            const parsedUrl = new URL(configuredBaseUrl, window.location.href);
+
+            if (!['localhost', '127.0.0.1'].includes(parsedUrl.hostname)) {
+                return parsedUrl.origin;
+            }
+        } catch (_error) {
+            return configuredBaseUrl;
+        }
+    }
+
+    return '';
+}
+
+const VEX_API_BASE_URL = resolveApiBaseUrl();
 
 function getToken() {
-    return localStorage.getItem('vex_access_token');
+    return sessionStorage.getItem('vex_access_token');
 }
 
 function setSession(session, user) {
-    localStorage.setItem('vex_access_token', session.accessToken);
-    localStorage.setItem('vex_refresh_token', session.refreshToken);
-    localStorage.setItem('vex_user_email', user.email || '');
+    sessionStorage.setItem('vex_access_token', session.accessToken);
+    sessionStorage.setItem('vex_refresh_token', session.refreshToken);
+    sessionStorage.setItem('vex_user_email', user.email || '');
 }
 
 function clearSession() {
-    localStorage.removeItem('vex_access_token');
-    localStorage.removeItem('vex_refresh_token');
-    localStorage.removeItem('vex_user_email');
+    sessionStorage.removeItem('vex_access_token');
+    sessionStorage.removeItem('vex_refresh_token');
+    sessionStorage.removeItem('vex_user_email');
 }
 
 function requireSession() {
