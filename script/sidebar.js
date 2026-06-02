@@ -20,6 +20,7 @@ function setupLogoutModal(sidebarSlot) {
     const modal = sidebarSlot.querySelector('.logout-modal');
     const cancelButtons = sidebarSlot.querySelectorAll('[data-logout-cancel]');
     const cancelButton = sidebarSlot.querySelector('.logout-modal__cancel');
+    const confirmButton = sidebarSlot.querySelector('[data-logout-confirm]');
 
     if (!logoutButton || !modal) {
         return;
@@ -42,6 +43,12 @@ function setupLogoutModal(sidebarSlot) {
 
     cancelButtons.forEach((button) => {
         button.addEventListener('click', closeModal);
+    });
+
+    confirmButton?.addEventListener('click', () => {
+        if (typeof clearSession === 'function') {
+            clearSession();
+        }
     });
 
     document.addEventListener('keydown', (event) => {
