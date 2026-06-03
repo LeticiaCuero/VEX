@@ -2,14 +2,21 @@ main {
     padding-bottom: 40px;
 }
 
-/* Tabela de finalizar entradas */
+.content {
+    display: grid;
+    grid-template-columns: minmax(280px, 360px) minmax(0, 1fr);
+    gap: 20px;
+    align-items: start;
+}
+
 .history-box {
-    margin-top: 22px;
+    margin-top: 0;
+    min-width: 0;
 }
 
 .table-wrap {
-    overflow-x: auto;
-    border-radius: 18px;
+    overflow-x: hidden;
+    border-radius: 8px;
     border: 1px solid rgba(113, 187, 201, 0.22);
     background: rgba(248, 252, 253, 0.72);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
@@ -17,8 +24,8 @@ main {
 
 .history-box {
     position: relative;
-    padding: 24px;
-    border-radius: 26px;
+    padding: 22px;
+    border-radius: 8px;
     border: var(--border);
     background: var(--surface);
     box-shadow: var(--shadow);
@@ -27,41 +34,42 @@ main {
 
 .history-box h1 {
     color: #18313b;
-    font-size: clamp(1.5rem, 2.2vw, 2.1rem);
+    font-size: clamp(1.05rem, 1.4vw, 1.35rem);
     line-height: 1.05;
-    font-weight: 800;
+    font-weight: 400;
     letter-spacing: 0;
     margin-bottom: 18px;
 }
 
 table {
     width: 100%;
+    table-layout: fixed;
     border-collapse: collapse;
 }
 
 thead th {
-    padding: 14px 16px;
+    padding: 13px 10px;
     background: linear-gradient(180deg, rgba(90, 209, 224, 0.16), rgba(77, 158, 169, 0.08));
     color: #23414d;
     text-align: left;
     font-size: 0.85rem;
-    font-weight: 800;
+    font-weight: 400;
     letter-spacing: 0.02em;
-    white-space: nowrap;
+    overflow-wrap: anywhere;
 }
 
 tbody td {
-    padding: 14px 16px;
+    padding: 13px 10px;
     border-top: 1px solid rgba(113, 187, 201, 0.15);
     color: #34464e;
     font-size: 0.92rem;
-    white-space: nowrap;
+    overflow-wrap: anywhere;
 }
 
 .history-box button {
     min-height: 34px;
     padding: 0.45rem 0.8rem;
-    border-radius: 999px;
+    border-radius: 8px;
     color: #fff;
     font-weight: 700;
     background: var(--button);
@@ -71,7 +79,7 @@ tbody td {
 @media (max-width: 520px) {
     .history-box {
         padding: 16px;
-        border-radius: 22px;
+        border-radius: 8px;
     }
 }
 
@@ -79,10 +87,10 @@ tbody td {
 .register-box {
     position: relative;
     overflow: hidden;
-    width: min(720px, 100%);
-    margin: 0 auto;
+    width: 100%;
+    margin: 0;
     padding: 22px;
-    border-radius: 24px;
+    border-radius: 8px;
     border: var(--border);
     background: var(--surface);
     box-shadow: var(--shadow);
@@ -90,14 +98,7 @@ tbody td {
 }
 
 .register-box::before {
-    content: "";
-    position: absolute;
-    inset: auto -120px -120px auto;
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(77, 198, 220, 0.16) 0%, rgba(77, 198, 220, 0.05) 38%, transparent 72%);
-    pointer-events: none;
+    content: none;
 }
 
 .register-box h1 {
@@ -105,9 +106,9 @@ tbody td {
     z-index: 1;
     margin-bottom: 18px;
     color: #18313b;
-    font-size: clamp(1.5rem, 2.6vw, 2.3rem);
+    font-size: clamp(1.05rem, 1.4vw, 1.35rem);
     line-height: 1.05;
-    font-weight: 800;
+    font-weight: 400;
     letter-spacing: 0;
 }
 
@@ -115,7 +116,7 @@ tbody td {
     position: relative;
     z-index: 1;
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 1fr;
     gap: 14px 16px;
 }
 
@@ -124,19 +125,19 @@ tbody td {
     gap: 6px;
 }
 
-.field:nth-child(5) {
+.field--full,
+.field--action {
     grid-column: 1 / -1;
 }
 
 .field--action {
-    grid-column: 1 / -1;
     margin-top: 4px;
 }
 
 .register-box label {
     color: #18313b;
     font-size: 0.92rem;
-    font-weight: 700;
+    font-weight: 400;
 }
 
 .register-box input,
@@ -144,7 +145,7 @@ tbody td {
     width: 100%;
     min-height: 52px;
     border: 1px solid rgba(113, 187, 201, 0.25);
-    border-radius: 14px;
+    border-radius: 8px;
     background: rgba(244, 249, 250, 0.9);
     color: #34464e;
     padding: 0.95rem 1rem;
@@ -183,14 +184,14 @@ tbody td {
 }
 
 .field--action button {
-    width: min(220px, 100%);
+    width: 100%;
     justify-self: start;
 }
 
 .btn-register {
     padding: 0.95rem 1.4rem;
     color: #fff;
-    border-radius: 999px;
+    border-radius: 8px;
     font-weight: 700;
     background: var(--button);
     box-shadow: 0 14px 30px rgba(77, 198, 220, 0.28);
@@ -203,7 +204,7 @@ tbody td {
     align-items: center;
     padding: 0.9rem 1rem;
     border: 1px dashed rgba(113, 187, 201, 0.35);
-    border-radius: 14px;
+    border-radius: 8px;
     background: rgba(244, 249, 250, 0.9);
     color: #2f5f6b;
     font-size: 0.93rem;
@@ -215,23 +216,137 @@ tbody td {
     box-shadow: 0 16px 30px rgba(19, 52, 61, 0.16);
 }
 
-@media (max-width: 760px) {
+.exit-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 120;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+.exit-modal.is-open {
+    display: flex;
+}
+
+.exit-modal__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 27, 36, 0.38);
+    backdrop-filter: blur(8px);
+}
+
+.exit-modal__box {
+    position: relative;
+    z-index: 1;
+    width: min(100%, 460px);
+    padding: 26px;
+    border: var(--border);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.94);
+    box-shadow: 0 24px 54px rgba(10, 27, 36, 0.18);
+}
+
+.exit-modal__box h2 {
+    margin-bottom: 16px;
+    color: #18313b;
+    font-size: 1.35rem;
+    line-height: 1.2;
+}
+
+.exit-modal__summary dl {
+    display: grid;
+    gap: 10px;
+}
+
+.exit-modal__summary div {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 18px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(113, 187, 201, 0.14);
+}
+
+.exit-modal__summary div:last-child {
+    border-bottom: 0;
+}
+
+.exit-modal__summary dt {
+    color: #5e7380;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.exit-modal__summary dd {
+    color: #18313b;
+    font-weight: 400;
+    text-align: right;
+}
+
+.exit-modal__summary strong {
+    color: #2f6b7b;
+    font-size: 1.25rem;
+}
+
+.exit-modal__actions {
+    margin-top: 22px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.exit-modal__cancel,
+.exit-modal__confirm {
+    min-height: 42px;
+    padding: 0 16px;
+    border-radius: 8px;
+    font-weight: 800;
+}
+
+.exit-modal__cancel {
+    color: #5e7380;
+    background: rgba(232, 244, 246, 0.94);
+}
+
+.exit-modal__confirm {
+    color: #fff;
+    background: var(--button);
+    box-shadow: 0 12px 24px rgba(77, 198, 220, 0.24);
+}
+
+.exit-modal__confirm:disabled {
+    cursor: not-allowed;
+    opacity: 0.62;
+}
+
+@media (max-width: 980px) {
     main {
         padding-top: 22px;
     }
 
-    .register-box form {
-        grid-template-columns: 1fr;
-    }
-
     .register-box {
         padding: 18px;
-        border-radius: 22px;
+        border-radius: 8px;
+    }
+
+    .content,
+    .register-box form {
+        grid-template-columns: 1fr;
     }
 }
 
 @media (max-width: 520px) {
     .btn-register {
         width: 100%;
+    }
+
+    .exit-modal__box {
+        padding: 20px;
+    }
+
+    .exit-modal__actions {
+        flex-direction: column;
     }
 }

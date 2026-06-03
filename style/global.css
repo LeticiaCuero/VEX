@@ -1,4 +1,3 @@
-.header-base-reset,
 * {
     margin: 0;
     padding: 0;
@@ -9,13 +8,19 @@
     --bg-start: #eff8f9;
     --bg-mid: #e6f2f4;
     --bg-end: #d7eaee;
-    --surface: rgba(255, 255, 255, 0.74);
+    --surface: rgba(255, 255, 255, 0.82);
+    --surface-strong: rgba(255, 255, 255, 0.92);
     --text: #0a1b24;
     --subtitle: #5e7380;
     --destaque: #4d9ea9;
     --button: linear-gradient(90deg, #5ad1e0 0%, #4cc0db 45%, #41d1a0 100%);
-    --shadow: 0 18px 40px rgba(19, 52, 61, 0.12);
+    --shadow: 0 16px 34px rgba(19, 52, 61, 0.1);
+    --shadow-soft: 0 10px 24px rgba(19, 52, 61, 0.08);
     --border: 1px solid rgba(255, 255, 255, 0.7);
+    --page-side-gap: 0px;
+    --sidebar-body-padding: 248px;
+    --content-side-padding: 16px;
+    --content-top-padding: 16px;
 }
 
 html {
@@ -23,15 +28,33 @@ html {
 }
 
 body {
-    font-family: "Poppins", sans-serif;
-    color: var(--text);
     min-height: 100vh;
-    padding-left: 260px;
+    color: var(--text);
+    font-family: "Poppins", Arial, sans-serif;
     background:
         radial-gradient(circle at top left, rgba(123, 224, 235, 0.32), transparent 35%),
         radial-gradient(circle at 80% 18%, rgba(77, 158, 169, 0.18), transparent 28%),
         linear-gradient(180deg, var(--bg-start) 0%, var(--bg-mid) 48%, var(--bg-end) 100%);
     overflow-x: hidden;
+}
+
+body:has([data-site-sidebar]) {
+    padding-left: var(--sidebar-body-padding);
+}
+
+body:has([data-site-sidebar]) main {
+    padding-inline: var(--content-side-padding);
+    padding-top: var(--content-top-padding);
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
 }
 
 button,
@@ -46,13 +69,46 @@ button {
     cursor: pointer;
 }
 
-main {
-    padding: 28px 0 44px;
+input,
+select,
+textarea {
+    width: 100%;
+    border: 1px solid rgba(113, 187, 201, 0.25);
+    border-radius: 8px;
+    outline: none;
+    color: #34464e;
+    background: rgba(244, 249, 250, 0.9);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.72),
+        0 2px 6px rgba(19, 52, 61, 0.06);
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
 }
 
-.content {
-    width: min(1080px, calc(100% - 32px));
-    margin: 0 auto;
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: rgba(77, 158, 169, 0.55);
+    box-shadow: 0 0 0 4px rgba(77, 158, 169, 0.12);
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #9baeb6;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.destaque {
+    color: var(--destaque);
+}
+
+@media (max-width: 520px) {
 }
 
 .site-sidebar {
@@ -60,17 +116,17 @@ main {
     top: 0;
     left: 0;
     z-index: 50;
-    width: 260px;
+    width: 248px;
     height: 100vh;
     backdrop-filter: blur(16px);
-    background: rgba(239, 248, 249, 0.72);
+    background: rgba(239, 248, 249, 0.86);
     border-right: 1px solid rgba(255, 255, 255, 0.65);
     box-shadow: 14px 0 34px rgba(19, 52, 61, 0.08);
 }
 
 .box-header {
     height: 100%;
-    padding: 28px 22px;
+    padding: 26px 18px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -105,7 +161,7 @@ main {
     align-items: center;
     min-height: 46px;
     padding: 0 16px;
-    border-radius: 14px;
+    border-radius: 8px;
     color: #5e7380;
     font-size: 0.96rem;
     font-weight: 500;
@@ -183,7 +239,7 @@ main {
     width: min(100%, 380px);
     padding: 28px;
     border: 1px solid rgba(255, 255, 255, 0.72);
-    border-radius: 18px;
+    border-radius: 8px;
     background: rgba(255, 255, 255, 0.92);
     box-shadow: 0 24px 54px rgba(10, 27, 36, 0.18);
 }
@@ -192,6 +248,7 @@ main {
     margin-bottom: 8px;
     color: #0a1b24;
     font-size: 1.35rem;
+    font-weight: 500;
     line-height: 1.2;
 }
 
@@ -212,7 +269,7 @@ main {
 .logout-modal__confirm {
     min-height: 42px;
     padding: 0 18px;
-    border-radius: 999px;
+    border-radius: 8px;
     font-weight: 700;
     text-decoration: none;
 }
@@ -227,18 +284,18 @@ main {
     align-items: center;
     justify-content: center;
     color: #fff;
-    background: linear-gradient(90deg, #5ad1e0 0%, #4cc0db 45%, #41d1a0 100%);
+    background: var(--button);
     box-shadow: 0 12px 24px rgba(77, 198, 220, 0.24);
 }
 
 @media (max-width: 980px) {
-    body {
+    body:has([data-site-sidebar]) {
         padding-left: 0;
-        padding-top: 146px;
     }
 
-    main {
-        padding-top: 20px;
+    body:has([data-site-sidebar]) main {
+        padding-inline: 12px;
+        padding-top: 12px;
     }
 
     .site-sidebar {
@@ -288,10 +345,6 @@ main {
 }
 
 @media (max-width: 520px) {
-    body {
-        padding-top: 214px;
-    }
-
     .box-header {
         width: min(100%, calc(100% - 20px));
         gap: 14px;

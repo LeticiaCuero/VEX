@@ -22,6 +22,10 @@ function getToken() {
     return sessionStorage.getItem('vex_access_token');
 }
 
+function getRefreshToken() {
+    return sessionStorage.getItem('vex_refresh_token');
+}
+
 function setSession(session, user) {
     sessionStorage.setItem('vex_access_token', session.accessToken);
     sessionStorage.setItem('vex_refresh_token', session.refreshToken);
@@ -40,7 +44,31 @@ function requireSession() {
     }
 }
 
-async function apiFetch(path, options = {}) {
+async function refreshSession() {
+    const refreshToken = getRefreshToken();
+
+    if (!refreshToken) {
+        return false;
+    }
+
+    const response = await fetch(`${VEX_API_BASE_URL}/api/auth/refresh`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ refreshToken })
+    });
+
+    if (!response.ok) {
+        return false;
+    }
+
+    const data = await response.json();
+    setSession(data.session, data.user);
+    return true;
+}
+
+async function apiFetch(path, options = {}, retrying = false) {
     const headers = {
         'Content-Type': 'application/json',
         ...(options.headers || {})
@@ -57,6 +85,12 @@ async function apiFetch(path, options = {}) {
     });
 
     if (response.status === 401) {
+        const canRefresh = !retrying && !path.startsWith('/api/auth/') && await refreshSession();
+
+        if (canRefresh) {
+            return apiFetch(path, options, true);
+        }
+
         clearSession();
         window.location.href = 'login.html';
         throw new Error('Sessao expirada.');

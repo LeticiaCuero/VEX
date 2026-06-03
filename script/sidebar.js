@@ -58,6 +58,4 @@ function setupLogoutModal(sidebarSlot) {
     });
 }
 
-loadSiteSidebar().catch(() => {
-    // Silently ignore sidebar loading failures so the page still renders.
-});
+loadSiteSidebar().catch(() => {});

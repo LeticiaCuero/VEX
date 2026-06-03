@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vex - Histórico</title>
-    <link rel="stylesheet" href="../style/sidebar.css">
+    <title>Vex - Historico</title>
+    <link rel="stylesheet" href="../style/global.css">
     <link rel="stylesheet" href="../style/history.css">
     <script src="../script/api.js" defer></script>
     <script src="../script/sidebar.js" defer></script>
@@ -17,7 +17,11 @@
     <main>
         <div class="content">
             <section class="history-box" id="history" aria-labelledby="history-title">
-                <h1 id="history-title">Histórico de Entradas e Saídas</h1>
+                <h1 id="history-title">Historico de Entradas e Saidas</h1>
+                <div class="history-tools">
+                    <label for="history-search">Buscar</label>
+                    <input type="search" id="history-search" placeholder="Placa, modelo, CPF, tipo ou data">
+                </div>
                 <div class="table-wrap">
                     <table>
                         <thead>
@@ -26,14 +30,13 @@
                                 <th>Modelo</th>
                                 <th>Marca</th>
                                 <th>Cor</th>
-                                <th>CPF do Proprietário</th>
-                                <th>Tipo de Veículo</th>
+                                <th>CPF do Proprietario</th>
+                                <th>Tipo de Veiculo</th>
                                 <th>Data e Hora de Entrada</th>
-                                <th>Data e Hora de Saída</th>
+                                <th>Data e Hora de Saida</th>
                             </tr>
                         </thead>
                         <tbody id="history-table">
-                            <!-- As linhas da tabela serão preenchidas dinamicamente -->
                         </tbody>
                     </table>
                 </div>

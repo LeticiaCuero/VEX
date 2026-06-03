@@ -33,6 +33,34 @@ router.post('/login', asyncHandler(async (req, res) => {
   });
 }));
 
+router.post('/refresh', asyncHandler(async (req, res) => {
+  const refreshToken = String(req.body.refreshToken || '').trim();
+
+  if (!refreshToken) {
+    return res.status(400).json({ message: 'Refresh token nao informado.' });
+  }
+
+  const { data, error } = await supabaseAuth.auth.refreshSession({
+    refresh_token: refreshToken
+  });
+
+  if (error || !data.session) {
+    return res.status(401).json({ message: 'Sessao invalida ou expirada.' });
+  }
+
+  return res.json({
+    user: {
+      id: data.user.id,
+      email: data.user.email
+    },
+    session: {
+      accessToken: data.session.access_token,
+      refreshToken: data.session.refresh_token,
+      expiresAt: data.session.expires_at
+    }
+  });
+}));
+
 router.post('/forgot-password', asyncHandler(async (req, res) => {
   const email = String(req.body.email || '').trim();
 

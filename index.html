@@ -4,7 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VEX, sistema de gestão para estacionamentos com cadastro, controle de entradas e saídas, tarifas e dashboard.">
     <title>Vex - Gestão para estacionamentos</title>
+    <link rel="stylesheet" href="style/global.css">
     <link rel="stylesheet" href="style/index.css">
     <script src="script/api.js" defer></script>
     <script src="script/index.js" defer></script>
@@ -13,15 +15,16 @@
 <body>
     <header>
         <div class="box-header">
-            <a class="logo" href="#home" aria-label="Ir para o início">
+            <a class="logo" href="#inicio" aria-label="Ir para o início">
                 <img src="img/Vex.png" alt="Vex" class="logo-img">
             </a>
             <div class="navegation">
                 <nav aria-label="Navegação principal">
                     <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#plans">Planos</a></li>
-                        <li><a href="#contact">Contato</a></li>
+                        <li><a href="#problema">Problema</a></li>
+                        <li><a href="#solucao">Solução</a></li>
+                        <li><a href="#demo">MVP</a></li>
+                        <li><a href="#equipe">Equipe</a></li>
                     </ul>
                 </nav>
             </div>
@@ -36,12 +39,12 @@
 
     <main>
         <div class="content">
-            <section class="home" id="home">
+            <section class="home" id="inicio">
                 <div class="title">
-                    <p>Gerenciando a sua empresa de forma simples <span class="destaque">e inteligente</span></p>
+                    <p>VEX gestão simples para <span class="destaque">estacionamentos</span></p>
                 </div>
                 <div class="subtitle">
-                    <p>Sistema completo para controle, cadastro e dashboards em tempo real.</p>
+                    <p>Sistema completo para cadastro de veículos, controle de entradas e saídas, configuração de tarifas e dashboards em tempo real.</p>
                 </div>
                 <div class="box-gestao">
                     <div class="icon-destaque">
@@ -60,16 +63,123 @@
                     </div>
                 </div>
                 <div class="btn-start">
-                    <a href="view/login.html">
-                        Começar agora
+                    <a href="#demo">
+                        Ver demonstração
                         <img class="arrow-start" src="img/arrow1.svg" alt="">
                     </a>
                 </div>
                 <div class="ballon">
-                    <p>VEX gestão simples para o dia a dia!</p>
+                    <p>Controle rápido, seguro e digital.</p>
                 </div>
                 <div class="img-home">
                     <img src="img/pc.png" alt="Dashboard Vex em um computador" class="img-home">
+                </div>
+            </section>
+
+            <section class="metrics" aria-label="Indicadores do projeto">
+                <article>
+                    <strong>01</strong>
+                    <span>Problema real investigado</span>
+                </article>
+                <article>
+                    <strong>04+</strong>
+                    <span>Funcionalidades principais</span>
+                </article>
+                <article>
+                    <strong>Web</strong>
+                    <span>Sistema acessível pelo navegador</span>
+                </article>
+                <article>
+                    <strong>MVP</strong>
+                    <span>Protótipo funcional integrado</span>
+                </article>
+            </section>
+
+            <section class="section split" id="problema">
+                <div class="section-text">
+                    <span class="section-label">Contexto</span>
+                    <h2>Problema identificado</h2>
+                    <p>Muitos estacionamentos ainda dependem de anotações manuais para registrar entradas, saídas, dados de veículos e valores cobrados.</p>
+                    <p>Esse processo aumenta o risco de perda de informações, dificulta a conferência do histórico e torna a gestão diária mais lenta.</p>
+                </div>
+                <div class="highlight-box">
+                    <h3>Dor principal</h3>
+                    <p>Falta de uma ferramenta simples para centralizar o controle operacional do estacionamento e acompanhar dados em tempo real.</p>
+                </div>
+            </section>
+
+            <section class="section" id="solucao">
+                <div class="section-heading">
+                    <span class="section-label">Proposta</span>
+                    <h2>Solução desenvolvida</h2>
+                    <p>O VEX digitaliza o fluxo de gestão do estacionamento, conectando cadastro, histórico, tarifas e indicadores em uma única interface.</p>
+                </div>
+                <div class="cards-grid">
+                    <article class="card">
+                        <h3>Cadastro de veículos</h3>
+                        <p>Registra placa, modelo, marca, cor, CPF do proprietário, tipo de veículo e tipo de estadia.</p>
+                    </article>
+                    <article class="card">
+                        <h3>Controle de entradas</h3>
+                        <p>Mostra veículos em aberto e permite finalizar a saída com poucos cliques.</p>
+                    </article>
+                    <article class="card">
+                        <h3>Configuração de tarifas</h3>
+                        <p>Permite cadastrar valores iniciais e adicionais por hora para diferentes tipos de veículo e estadia.</p>
+                    </article>
+                </div>
+            </section>
+
+            <section class="section dark" id="tecnologias">
+                <div class="section-heading">
+                    <span class="section-label">Implementação</span>
+                    <h2>Tecnologias utilizadas</h2>
+                    <p>O projeto combina frontend estático, API Node.js e banco de dados Supabase para entregar uma experiência funcional.</p>
+                </div>
+                <div class="tech-list">
+                    <span>HTML</span>
+                    <span>CSS</span>
+                    <span>JavaScript</span>
+                    <span>Node.js</span>
+                    <span>Express</span>
+                    <span>Supabase</span>
+                    <span>Vercel</span>
+                </div>
+            </section>
+
+            <section class="section split" id="arquitetura">
+                <div class="section-text">
+                    <span class="section-label">Arquitetura</span>
+                    <h2>Como a solução funciona</h2>
+                    <p>O usuário acessa a interface web, realiza login e utiliza as telas internas para cadastrar veículos, consultar históricos e configurar tarifas.</p>
+                    <p>A API em Node.js processa as requisições e se comunica com o Supabase para autenticação e armazenamento dos dados.</p>
+                </div>
+                <div class="diagram">
+                    <div>Usuário</div>
+                    <span>→</span>
+                    <div>Interface Web</div>
+                    <span>→</span>
+                    <div>API Node.js</div>
+                    <span>→</span>
+                    <div>Supabase</div>
+                </div>
+            </section>
+
+            <section class="section" id="demo">
+                <div class="section-heading">
+                    <span class="section-label">Demonstração</span>
+                    <h2>Apresentação do MVP</h2>
+                    <p>O MVP possui fluxo de login, cadastro de veículos, finalização de entradas, histórico, dashboard e configuração de tarifas.</p>
+                </div>
+                <div class="demo-box">
+                    <div class="demo-preview">
+                        <img src="img/pc.png" alt="Preview do sistema VEX">
+                    </div>
+                    <div>
+                        <h3>Sistema funcional</h3>
+                        <p>Acesse a área interna para testar as telas principais do sistema de gestão.</p>
+                        <a class="btn primary" href="view/login.html">Acessar MVP</a>
+                    </div>
                 </div>
             </section>
 
@@ -90,12 +200,12 @@
                         <p class="price">R$ 00,00 <span class="mounth">/MÊS</span></p>
                         <div class="plan-divider"></div>
                         <ul class="plan-features" aria-label="Recursos do plano básico">
-                            <li><img src="img/check2.svg" alt=""><span class="sr-only">Registro de veículos</span></li>
-                            <li><img src="img/check2.svg" alt=""><span class="sr-only">Histórico em tempo real</span></li>
-                            <li><img src="img/check2.svg" alt=""><span class="sr-only">Dashboards interativos</span></li>
-                            <li><img src="img/check2.svg" alt=""><span class="sr-only">Cadastro de entrada e saída</span></li>
-                            <li><img src="img/check2.svg" alt=""><span class="sr-only">Controle diário</span></li>
-                            <li><img src="img/check2.svg" alt=""><span class="sr-only">Suporte básico</span></li>
+                            <li><img src="img/check2.svg" alt=""><span>Registro de veículos</span></li>
+                            <li><img src="img/check2.svg" alt=""><span>Histórico em tempo real</span></li>
+                            <li><img src="img/check2.svg" alt=""><span>Dashboards interativos</span></li>
+                            <li><img src="img/check2.svg" alt=""><span>Cadastro de entrada e saída</span></li>
+                            <li><img src="img/check2.svg" alt=""><span>Controle diário</span></li>
+                            <li><img src="img/check2.svg" alt=""><span>Suporte básico</span></li>
                         </ul>
                         <button class="plan-cta" type="button">Assinar</button>
                     </article>
@@ -106,30 +216,59 @@
                 </div>
             </section>
 
-            <section class="contact" id="contact">
+            <section class="section split" id="ods">
+                <div class="section-text">
+                    <span class="section-label">Impacto</span>
+                    <h2>Resultados esperados e ODS</h2>
+                    <p>O VEX busca reduzir retrabalho, melhorar a segurança das informações e apoiar decisões operacionais por meio de dados organizados.</p>
+                </div>
+                <div class="ods-card">
+                    <strong>ODS 9</strong>
+                    <p>Indústria, Inovação e Infraestrutura</p>
+                    <small>Solução digital aplicada à melhoria de processos.</small>
+                </div>
+            </section>
+
+            <section class="section" id="equipe">
+                <div class="section-heading">
+                    <span class="section-label">Equipe</span>
+                    <h2>Integrantes do projeto</h2>
+                    <p>Projeto acadêmico desenvolvido para apresentar uma solução tecnológica aplicada à gestão de estacionamentos.</p>
+                </div>
+                <div class="team-grid">
+                    <article class="team-card">
+                        <div class="avatar">L</div>
+                        <h3>Leticia Cuero</h3>
+                        <p>Desenvolvimento e interface</p>
+                    </article>
+                    <article class="team-card">
+                        <div class="avatar">V</div>
+                        <h3>VEX</h3>
+                        <p>Pesquisa, prototipação e validação</p>
+                    </article>
+                </div>
+            </section>
+
+            <section class="contact" id="acesso">
                 <div class="title">
-                    <p>Gerenciamento para <span class="destaque">estacionamentos</span></p>
+                    <p>Acesse o <span class="destaque">projeto</span> durante a apresentação</p>
                 </div>
                 <div class="description">
-                    <p><img src="img/check2.svg" alt=""> Registros de entrada, saída e dados</p>
-                    <p><img src="img/check2.svg" alt=""> Dashboards individuais</p>
-                    <p><img src="img/check2.svg" alt=""> Liberdade de configurações em geral</p>
+                    <p><img src="img/check2.svg" alt=""> Teste o MVP pelo navegador</p>
+                    <p><img src="img/check2.svg" alt=""> Consulte as principais telas do sistema</p>
+                    <p><img src="img/check2.svg" alt=""> Envie uma mensagem para a equipe</p>
                 </div>
                 <div class="text-content">
                     <p>
-                        Automação completa para substituir o tradicional <span class="destaque">papelzinho</span>,
-                        garantindo controle e principalmente segurança para o seu negócio.
+                        Use a página como banner digital para apresentar o problema, a solução e a implementação do sistema.
                     </p>
                 </div>
                 <div class="text-destaque">
-                    <p>Praticidade pensada para você</p>
+                    <p>Praticidade pensada para o dia a dia</p>
                 </div>
                 <div class="contact-card">
-                    <div class="contact-chip contact-chip--mail">
-                        <span class="contact-chip__icon" aria-hidden="true">@</span>
-                    </div>
-                    <div class="contact-chip contact-chip--whatsapp">
-                        <span class="contact-chip__icon" aria-hidden="true">W</span>
+                    <div class="qr-box" aria-label="QR Code visual do projeto">
+                        <span>VEX</span>
                     </div>
                     <form class="form">
                         <input type="text" name="name" placeholder="Nome" aria-label="Nome" autocomplete="name">

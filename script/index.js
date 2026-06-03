@@ -70,6 +70,4 @@ planCta?.addEventListener('click', async () => {
     }
 });
 
-loadFeaturedPlan().catch(() => {
-    // Mantem o plano estatico se a API ainda nao estiver disponivel.
-});
+loadFeaturedPlan().catch(() => {});

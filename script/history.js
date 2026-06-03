@@ -1,6 +1,33 @@
 requireSession();
 
 const historyTable = document.querySelector('#history-table');
+const historySearch = document.querySelector('#history-search');
+let historyVehicles = [];
+
+function vehicleMatchesSearch(vehicle, term) {
+    if (!term) {
+        return true;
+    }
+
+    const searchableText = [
+        vehicle.plate,
+        vehicle.model,
+        vehicle.brand,
+        vehicle.color,
+        vehicle.owner_cpf,
+        vehicle.vehicle_type,
+        vehicle.stay_type,
+        formatDateTime(vehicle.entry_at),
+        formatDateTime(vehicle.exit_at)
+    ].join(' ').toLowerCase();
+
+    return searchableText.includes(term);
+}
+
+function applyHistorySearch() {
+    const term = historySearch.value.trim().toLowerCase();
+    renderHistory(historyVehicles.filter((vehicle) => vehicleMatchesSearch(vehicle, term)));
+}
 
 function renderHistory(vehicles) {
     historyTable.innerHTML = '';
@@ -30,13 +57,19 @@ historyTable?.addEventListener('click', async (event) => {
 
     try {
         await apiFetch(`/api/vehicles/${button.dataset.exitId}/exit`, { method: 'PATCH' });
-        renderHistory(await apiFetch('/api/vehicles'));
+        historyVehicles = await apiFetch('/api/vehicles');
+        applyHistorySearch();
     } catch (error) {
         alert(error.message);
         button.disabled = false;
     }
 });
 
+historySearch?.addEventListener('input', applyHistorySearch);
+
 apiFetch('/api/vehicles')
-    .then(renderHistory)
+    .then((vehicles) => {
+        historyVehicles = vehicles;
+        applyHistorySearch();
+    })
     .catch((error) => alert(error.message));

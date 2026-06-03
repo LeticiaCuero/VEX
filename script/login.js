@@ -9,6 +9,7 @@ loginForm?.addEventListener('submit', async (event) => {
 
     button.disabled = true;
     button.textContent = 'Entrando...';
+    clearSession();
 
     try {
         const data = await apiFetch('/api/auth/login', {
