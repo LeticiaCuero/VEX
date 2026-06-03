@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vex - Cadastro de Veículos</title>
+    <title>VEX - Cadastro de Veículos</title>
     <link rel="stylesheet" href="../style/global.css">
     <link rel="stylesheet" href="../style/home.css">
     <script src="../script/api.js" defer></script>
@@ -16,8 +16,19 @@
     <div data-site-sidebar></div>
     <main>
         <div class="content">
+            <section class="page-hero" aria-labelledby="page-title">
+                <div>
+                    <span class="section-label">Operação</span>
+                    <h1 id="page-title">Controle de entrada e saída</h1>
+                    <p>Registre veículos, acompanhe permanências em aberto e finalize atendimentos com cálculo de tarifa.</p>
+                </div>
+            </section>
+
             <section class="register-box" id="register" aria-labelledby="register-title">
-                <h1 id="register-title">Cadastro de Veículos</h1>
+                <div class="panel-heading">
+                    <span class="section-label">Check-in</span>
+                    <h2 id="register-title">Cadastro de veículos</h2>
+                </div>
                 <form method="post">
                     <div class="field">
                         <label for="placa">Placa do veículo</label>
@@ -36,11 +47,11 @@
                         <input type="text" id="cor" name="cor" required>
                     </div>
                     <div class="field">
-                        <label for="cpf">CPF do proprietário</label>
+                        <label for="cpf">CPF</label>
                         <input type="text" id="cpf" name="cpf" autocomplete="off" required>
                     </div>
                     <div class="field">
-                        <label for="tipo">Tipo de veículo</label>
+                        <label for="tipo">Veículo</label>
                         <select id="tipo" name="tipo" required>
                             <option value="" selected disabled>Selecione</option>
                         </select>
@@ -52,7 +63,7 @@
                         </select>
                     </div>
                     <div class="field field--full">
-                        <p class="rate-preview" id="rate-preview">Selecione tipo de veiculo e estadia para ver os valores.</p>
+                        <p class="rate-preview" id="rate-preview">Selecione veículo e estadia para ver os valores.</p>
                     </div>
                     <div class="field field--action">
                         <button type="submit" class="btn-register">Registrar</button>
@@ -61,19 +72,20 @@
             </section>
 
             <section class="history-box" id="pending" aria-labelledby="pending-title">
-                <h1 id="pending-title">Finalizar Entradas em Aberto</h1>
+                <div class="panel-heading">
+                    <span class="section-label">Check-out</span>
+                    <h2 id="pending-title">Entradas em aberto</h2>
+                </div>
 
                 <div class="table-wrap">
                     <table>
                         <thead>
                             <tr>
                                 <th>Placa</th>
-                                <th>Modelo</th>
-                                <th>Marca</th>
-                                <th>Cor</th>
-                                <th>CPF do Proprietário</th>
-                                <th>Tipo de Veículo</th>
-                                <th>Data e Hora de Entrada</th>
+                                <th>Veículo</th>
+                                <th>CPF</th>
+                                <th>Veículo</th>
+                                <th>Entrada</th>
                                 <th>Ação</th>
                             </tr>
                         </thead>

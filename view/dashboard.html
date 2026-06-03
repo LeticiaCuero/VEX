@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vex - Dashboard</title>
+    <title>VEX - Dashboard</title>
     <link rel="stylesheet" href="../style/global.css">
     <link rel="stylesheet" href="../style/dashboard.css">
     <script src="../script/api.js" defer></script>
@@ -17,7 +17,60 @@
     <main>
         <div class="content">
             <section class="dashboard-box" id="dashboard" aria-labelledby="dashboard-title">
-                <h1 id="dashboard-title">Dashboard de Controle de Estacionamento</h1>
+                <div class="dashboard-header">
+                    <div>
+                        <span>Business intelligence</span>
+                        <h1 id="dashboard-title">Painel de desempenho</h1>
+                    </div>
+                    <p>Indicadores operacionais de entrada, saida, faturamento e perfil dos veiculos.</p>
+                </div>
+
+                <div class="kpi-grid" id="kpi-grid"></div>
+
+                <div class="analytics-grid">
+                    <article class="chart-card chart-card--wide">
+                        <div class="chart-heading">
+                            <div>
+                                <span>Dia de pico</span>
+                                <h2>Movimento dos ultimos 7 dias</h2>
+                            </div>
+                            <strong id="peak-day-label">-</strong>
+                        </div>
+                        <div class="column-chart" id="daily-chart"></div>
+                    </article>
+
+                    <article class="chart-card">
+                        <div class="chart-heading">
+                            <div>
+                                <span>Receita</span>
+                                <h2>Faturamento</h2>
+                            </div>
+                            <strong id="revenue-total">R$ 0,00</strong>
+                        </div>
+                        <div class="revenue-chart" id="revenue-chart"></div>
+                    </article>
+
+                    <article class="chart-card">
+                        <div class="chart-heading">
+                            <div>
+                                <span>Pico horario</span>
+                                <h2>Entradas por horario</h2>
+                            </div>
+                            <strong id="peak-hour-label">-</strong>
+                        </div>
+                        <div class="hour-chart" id="hour-chart"></div>
+                    </article>
+
+                    <article class="chart-card chart-card--wide">
+                        <div class="chart-heading">
+                            <div>
+                                <span>Frota</span>
+                                <h2>Total por tipo de veiculo</h2>
+                            </div>
+                        </div>
+                        <div class="type-chart" id="type-chart"></div>
+                    </article>
+                </div>
             </section>
         </div>
     </main>

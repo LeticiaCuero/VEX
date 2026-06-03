@@ -7,20 +7,36 @@ let editingId = null;
 function renderRates(rates) {
     configTable.innerHTML = '';
 
+    if (!rates.length) {
+        configTable.innerHTML = '<p class="empty-rates">Nenhuma tarifa cadastrada.</p>';
+        return;
+    }
+
     rates.forEach((rate) => {
-        const row = document.createElement('tr');
-        row.dataset.rate = JSON.stringify(rate);
-        row.innerHTML = `
-            <td>${escapeHtml(rate.vehicle_type)}</td>
-            <td>${escapeHtml(rate.stay_type)}</td>
-            <td>${formatCurrency(rate.value)}</td>
-            <td>${formatCurrency(rate.additional || 0)}</td>
-            <td>
+        const card = document.createElement('article');
+        card.className = 'rate-card';
+        card.dataset.rate = JSON.stringify(rate);
+        card.innerHTML = `
+            <div class="rate-main">
+                <strong>${escapeHtml(rate.vehicle_type)}</strong>
+                <span>${escapeHtml(rate.stay_type)}</span>
+            </div>
+            <div class="rate-values">
+                <div>
+                    <span>Inicial</span>
+                    <strong>${formatCurrency(rate.value)}</strong>
+                </div>
+                <div>
+                    <span>Adicional/h</span>
+                    <strong>${formatCurrency(rate.additional || 0)}</strong>
+                </div>
+            </div>
+            <div class="rate-actions">
                 <button type="button" class="is-secondary" data-edit-id="${rate.id}">Editar</button>
                 <button type="button" data-delete-id="${rate.id}">Excluir</button>
-            </td>
+            </div>
         `;
-        configTable.appendChild(row);
+        configTable.appendChild(card);
     });
 }
 
@@ -66,8 +82,8 @@ configTable?.addEventListener('click', async (event) => {
     const deleteButton = event.target.closest('[data-delete-id]');
 
     if (editButton) {
-        const tr = editButton.closest('tr');
-        const rate = JSON.parse(tr.dataset.rate);
+        const card = editButton.closest('.rate-card');
+        const rate = JSON.parse(card.dataset.rate);
 
         editingId = rate.id;
         taxForm.elements['vehicle-type'].value = rate.vehicle_type;
@@ -95,4 +111,3 @@ configTable?.addEventListener('click', async (event) => {
 });
 
 loadRates().catch((error) => alert(error.message));
-

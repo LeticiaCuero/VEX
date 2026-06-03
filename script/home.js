@@ -28,44 +28,102 @@ function findRate(vehicleType, stayType) {
     return rateCatalog.find((rate) => rate.vehicle_type === vehicleType && rate.stay_type === stayType);
 }
 
+function normalizeStayType(value) {
+    return String(value || '')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase();
+}
+
+function parseStayMinutes(stayType) {
+    const normalized = normalizeStayType(stayType);
+    const numberMatch = normalized.match(/(\d+(?:[,.]\d+)?)/);
+    const amount = numberMatch ? Number(numberMatch[1].replace(',', '.')) : 0;
+
+    if (normalized.includes('diaria') || normalized.includes('dia')) {
+        return 24 * 60;
+    }
+
+    if (normalized.includes('mensal') || normalized.includes('mes')) {
+        return 30 * 24 * 60;
+    }
+
+    if (amount && /(min|minuto|minutos)/.test(normalized)) {
+        return Math.round(amount);
+    }
+
+    if (amount && /(h|hora|horas)/.test(normalized)) {
+        return Math.round(amount * 60);
+    }
+
+    return 60;
+}
+
+function resolveAdditionalValue(rate, initialValue, initialMinutes) {
+    const additionalValue = Number(rate.additional || 0);
+
+    if (additionalValue > 0) {
+        return additionalValue;
+    }
+
+    return initialMinutes < 24 * 60 ? initialValue : 0;
+}
+
 function calculateExitAmount(vehicle) {
     const rate = findRate(vehicle.vehicle_type, vehicle.stay_type);
     const entryDate = new Date(vehicle.entry_at);
     const exitDate = new Date();
     const elapsedMs = Math.max(exitDate - entryDate, 0);
-    const elapsedHours = elapsedMs / (1000 * 60 * 60);
-    const chargedAdditionalHours = Math.max(Math.ceil(elapsedHours) - 1, 0);
+    const elapsedMinutes = Math.max(Math.round(elapsedMs / (1000 * 60)), 0);
+    const initialMinutes = parseStayMinutes(vehicle.stay_type);
+    const additionalStartMinutes = Math.max(initialMinutes, 60);
+    const exceededMinutes = Math.max(elapsedMinutes - additionalStartMinutes, 0);
+    const chargedAdditionalHours = Math.ceil(exceededMinutes / 60);
 
     if (!rate) {
         return {
             rate: null,
-            elapsedHours,
+            elapsedMinutes,
+            initialMinutes,
+            additionalStartMinutes,
+            exceededMinutes,
             chargedAdditionalHours,
+            initialValue: 0,
+            additionalValue: 0,
+            additionalTotal: 0,
             total: 0
         };
     }
 
     const initialValue = Number(rate.value || 0);
-    const additionalValue = Number(rate.additional || 0);
+    const additionalValue = resolveAdditionalValue(rate, initialValue, initialMinutes);
+
+    const additionalTotal = chargedAdditionalHours * additionalValue;
 
     return {
         rate,
-        elapsedHours,
+        elapsedMinutes,
+        initialMinutes,
+        additionalStartMinutes,
+        exceededMinutes,
         chargedAdditionalHours,
-        total: initialValue + (chargedAdditionalHours * additionalValue)
+        initialValue,
+        additionalValue,
+        additionalTotal,
+        total: initialValue + additionalTotal
     };
 }
 
-function formatElapsedHours(hours) {
-    const totalMinutes = Math.max(Math.round(hours * 60), 0);
+function formatElapsedMinutes(minutes) {
+    const totalMinutes = Math.max(Math.round(Number(minutes) || 0), 0);
     const wholeHours = Math.floor(totalMinutes / 60);
-    const minutes = totalMinutes % 60;
+    const restMinutes = totalMinutes % 60;
 
     if (!wholeHours) {
-        return `${minutes} min`;
+        return `${restMinutes} min`;
     }
 
-    return `${wholeHours}h ${String(minutes).padStart(2, '0')}min`;
+    return `${wholeHours}h ${String(restMinutes).padStart(2, '0')}min`;
 }
 
 function refreshRatePreview() {
@@ -75,7 +133,7 @@ function refreshRatePreview() {
     const selectedStayType = stayTypeSelect.value;
 
     if (!selectedVehicleType || !selectedStayType) {
-        ratePreview.textContent = 'Selecione tipo de veiculo e estadia para ver os valores.';
+        ratePreview.textContent = 'Selecione veiculo e estadia para ver os valores.';
         return;
     }
 
@@ -169,9 +227,7 @@ function renderPendingVehicles(vehicles) {
         const row = document.createElement('tr');
         row.innerHTML = `
             <td>${escapeHtml(vehicle.plate)}</td>
-            <td>${escapeHtml(vehicle.model)}</td>
-            <td>${escapeHtml(vehicle.brand)}</td>
-            <td>${escapeHtml(vehicle.color)}</td>
+            <td>${escapeHtml(vehicle.brand)} ${escapeHtml(vehicle.model)} · ${escapeHtml(vehicle.color)}</td>
             <td>${escapeHtml(vehicle.owner_cpf)}</td>
             <td>${escapeHtml(vehicle.vehicle_type)}</td>
             <td>${formatDateTime(vehicle.entry_at)}</td>
@@ -191,10 +247,16 @@ function openExitModal(vehicle) {
         <dl>
             <div><dt>Placa</dt><dd>${escapeHtml(vehicle.plate)}</dd></div>
             <div><dt>Veículo</dt><dd>${escapeHtml(vehicle.brand)} ${escapeHtml(vehicle.model)}</dd></div>
+            <div><dt>Estadia</dt><dd>${escapeHtml(vehicle.stay_type)}</dd></div>
             <div><dt>Entrada</dt><dd>${formatDateTime(vehicle.entry_at)}</dd></div>
-            <div><dt>Tempo</dt><dd>${formatElapsedHours(calculation.elapsedHours)}</dd></div>
-            <div><dt>Valor inicial</dt><dd>${formatCurrency(calculation.rate?.value || 0)}</dd></div>
-            <div><dt>Horas adicionais</dt><dd>${calculation.chargedAdditionalHours}</dd></div>
+            <div><dt>Tempo</dt><dd>${formatElapsedMinutes(calculation.elapsedMinutes)}</dd></div>
+            <div><dt>Periodo inicial</dt><dd>${formatElapsedMinutes(calculation.initialMinutes)}</dd></div>
+            <div><dt>Adicional apos</dt><dd>${formatElapsedMinutes(calculation.additionalStartMinutes)}</dd></div>
+            <div><dt>Tempo excedente</dt><dd>${formatElapsedMinutes(calculation.exceededMinutes)}</dd></div>
+            <div><dt>Valor inicial</dt><dd>${formatCurrency(calculation.initialValue)}</dd></div>
+            <div><dt>Adicional por hora</dt><dd>${formatCurrency(calculation.additionalValue)}</dd></div>
+            <div><dt>Horas adicionais cobradas</dt><dd>${calculation.chargedAdditionalHours}</dd></div>
+            <div><dt>Total adicional</dt><dd>${formatCurrency(calculation.additionalTotal)}</dd></div>
             <div><dt>Valor total</dt><dd><strong>${formatCurrency(calculation.total)}</strong></dd></div>
         </dl>
     `;

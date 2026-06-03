@@ -12,7 +12,21 @@ async function loadSiteSidebar() {
     }
 
     sidebarSlot.innerHTML = await response.text();
+    setActiveSidebarLink(sidebarSlot);
     setupLogoutModal(sidebarSlot);
+}
+
+function setActiveSidebarLink(sidebarSlot) {
+    const currentPage = window.location.pathname.split('/').pop() || 'home.html';
+
+    sidebarSlot.querySelectorAll('.navegation a').forEach((link) => {
+        const targetPage = link.getAttribute('href');
+
+        if (targetPage === currentPage) {
+            link.classList.add('is-active');
+            link.setAttribute('aria-current', 'page');
+        }
+    });
 }
 
 function setupLogoutModal(sidebarSlot) {

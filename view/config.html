@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vex - Configurações</title>
+    <title>VEX - Configuracoes</title>
     <link rel="stylesheet" href="../style/global.css">
     <link rel="stylesheet" href="../style/config.css">
     <script src="../script/api.js" defer></script>
@@ -16,42 +16,50 @@
     <div data-site-sidebar></div>
     <main>
         <div class="content">
-            <form class="tax-form" method="post">
-                <h1>Configurações de Taxas</h1>
-                <div class="field">
-                    <label for="vehicle-type">Tipo de veículo</label>
-                    <input type="text" name="vehicle-type" id="vehicle-type" placeholder="Ex.: Carro">
+            <section class="config-page" aria-labelledby="config-title">
+                <div class="config-header">
+                    <div>
+                        <span>Configuracoes</span>
+                        <h1 id="config-title">Tarifas do estacionamento</h1>
+                    </div>
+                    <p>Cadastre os valores iniciais e adicionais usados no calculo de saida dos veiculos.</p>
                 </div>
-                <div class="field">
-                    <label for="stay-type">Tipo de estadia</label>
-                    <input type="text" name="stay-type" id="stay-type" placeholder="Ex.: Mensal">
-                </div>
-                <div class="field">
-                    <label for="value">Valor</label>
-                    <input type="text" name="value" id="value" placeholder="R$ 0,00">
-                </div>
-                <div class="field">
-                    <label for="additional-hour">Valor Adicional por Hora</label>
-                    <input type="text" name="additional-hour" id="additional-hour" placeholder="R$ 0,00">
-                </div>
-                <button type="submit">Salvar</button>
-            </form>
 
-            <section class="config-list" aria-labelledby="config-title">
-                <h2 id="config-title">Configurações Atuais</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Tipo de Veículo</th>
-                            <th>Tipo de Estadia</th>
-                            <th>Valor Inicial</th>
-                            <th>Valor Adicional por Hora</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody id="config-table">
-                    </tbody>
-                </table>
+                <form class="tax-form" method="post">
+                    <div class="form-heading">
+                        <span>Nova tarifa</span>
+                        <strong>Dados da cobranca</strong>
+                    </div>
+                    <div class="form-grid">
+                        <div class="field">
+                            <label for="vehicle-type">Veiculo</label>
+                            <input type="text" name="vehicle-type" id="vehicle-type" placeholder="Ex.: Moto">
+                        </div>
+                        <div class="field">
+                            <label for="stay-type">Estadia</label>
+                            <input type="text" name="stay-type" id="stay-type" placeholder="Ex.: 30 Minutos">
+                        </div>
+                        <div class="field">
+                            <label for="value">Valor inicial</label>
+                            <input type="text" name="value" id="value" placeholder="R$ 0,00">
+                        </div>
+                        <div class="field">
+                            <label for="additional-hour">Adicional por hora</label>
+                            <input type="text" name="additional-hour" id="additional-hour" placeholder="R$ 0,00">
+                        </div>
+                    </div>
+                    <button type="submit">Salvar tarifa</button>
+                </form>
+
+                <section class="config-list" aria-labelledby="rates-title">
+                    <div class="list-heading">
+                        <div>
+                            <span>Tarifas cadastradas</span>
+                            <h2 id="rates-title">Regras de cobranca</h2>
+                        </div>
+                    </div>
+                    <div class="rate-list" id="config-table"></div>
+                </section>
             </section>
         </div>
     </main>

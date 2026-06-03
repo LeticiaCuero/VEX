@@ -4,30 +4,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vex - Login</title>
-    <link rel="stylesheet" href="../style/global.css">
+    <title>VEX - Login</title>
     <link rel="stylesheet" href="../style/login.css">
     <script src="../script/api.js" defer></script>
     <script src="../script/login.js" defer></script>
 </head>
 
 <body>
-    <main class="box-login">
-        <div class="title" aria-hidden="true"></div>
-        <div class="form-login">
-            <form method="post">
-                <label for="username">Usuário</label>
-                <input type="text" id="username" name="username" autocomplete="username" required>
+    <main class="login-page">
+        <section class="box-login" aria-label="Login">
+            <div class="login-card-header">
+                <span>Entrar no sistema</span>
+                <img src="../img/Vex.png" alt="VEX">
+            </div>
 
-                <label for="password">Senha</label>
-                <input type="password" id="password" name="password" autocomplete="current-password" required>
+            <div class="form-login">
+                <form method="post">
+                    <label for="username">Usuário</label>
+                    <input type="text" id="username" name="username" autocomplete="username" required>
 
-                <button type="submit">Entrar</button>
-            </form>
-        </div>
-        <div class="forgot-password">
-            <button class="btn-password" type="button">Esqueci minha senha</button>
-        </div>
+                    <label for="password">Senha</label>
+                    <input type="password" id="password" name="password" autocomplete="current-password" required>
+
+                    <button type="submit">Entrar</button>
+                </form>
+            </div>
+        </section>
     </main>
 </body>
 

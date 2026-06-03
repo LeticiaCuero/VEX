@@ -7,11 +7,8 @@ const morgan = require('morgan');
 const path = require('path');
 
 const authRoutes = require('./src/routes/auth.routes');
-const contactsRoutes = require('./src/routes/contacts.routes');
 const dashboardRoutes = require('./src/routes/dashboard.routes');
-const plansRoutes = require('./src/routes/plans.routes');
 const ratesRoutes = require('./src/routes/rates.routes');
-const subscriptionsRoutes = require('./src/routes/subscriptions.routes');
 const vehiclesRoutes = require('./src/routes/vehicles.routes');
 const { requireAuth } = require('./src/middleware/auth');
 
@@ -31,10 +28,7 @@ app.get('/health', (_req, res) => {
 });
 
 app.use('/api/auth', authRoutes);
-app.use('/api/contacts', contactsRoutes);
-app.use('/api/plans', plansRoutes);
 app.use('/api/rates', requireAuth, ratesRoutes);
-app.use('/api/subscriptions', requireAuth, subscriptionsRoutes);
 app.use('/api/vehicles', requireAuth, vehiclesRoutes);
 app.use('/api/dashboard', requireAuth, dashboardRoutes);
 

@@ -1,252 +1,273 @@
-.content {
-    display: grid;
-    grid-template-columns: minmax(260px, 330px) minmax(0, 1fr);
-    gap: 20px;
-    align-items: start;
+main {
+    padding-bottom: 42px;
 }
 
+.content {
+    width: min(100%, 1320px);
+    margin: 0 auto;
+}
+
+.config-page {
+    display: grid;
+    gap: 18px;
+}
+
+.config-header {
+    display: grid;
+    grid-template-columns: minmax(280px, 1fr) minmax(260px, 430px);
+    align-items: end;
+    gap: 20px;
+    padding: 24px;
+    border: var(--border);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.86);
+    box-shadow: var(--shadow-soft);
+    backdrop-filter: blur(16px);
+}
+
+.config-header span,
+.form-heading span,
+.list-heading span {
+    display: inline-flex;
+    color: var(--blue);
+    font-size: 0.76rem;
+    font-weight: 950;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.config-header span {
+    margin-bottom: 8px;
+}
+
+.config-header h1 {
+    color: var(--ink);
+    font-size: clamp(1.85rem, 3vw, 2.75rem);
+    line-height: 1.04;
+    font-weight: 950;
+}
+
+.config-header p {
+    color: var(--muted);
+    line-height: 1.55;
+}
+
+.tax-form,
+.config-list {
+    border: var(--border);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.86);
+    box-shadow: var(--shadow-soft);
+    backdrop-filter: blur(16px);
+}
 
 .tax-form {
-    width: 100%;
-    margin: 0;
-    padding: 26px;
+    padding: 22px;
     display: grid;
-    gap: 14px;
-    border-radius: 8px;
-    border: var(--border);
-    background: var(--surface);
-    box-shadow: var(--shadow);
-    backdrop-filter: blur(14px);
+    gap: 18px;
 }
 
-.tax-form h1 {
-    margin-bottom: 4px;
-    color: #18313b;
-    font-size: clamp(1.35rem, 2vw, 1.75rem);
-    line-height: 1.05;
-    font-weight: 500;
-    letter-spacing: 0;
+.form-heading,
+.list-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.form-heading {
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(39, 105, 120, 0.1);
+}
+
+.form-heading strong,
+.list-heading h2 {
+    display: block;
+    margin-top: 6px;
+    color: var(--ink);
+    font-size: clamp(1.15rem, 1.8vw, 1.55rem);
+    line-height: 1.12;
+    font-weight: 950;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
 }
 
 .field {
     display: grid;
-    gap: 6px;
-}
-
-.field--full {
-    grid-column: 1 / -1;
+    gap: 7px;
 }
 
 .tax-form label {
-    color: #18313b;
-    font-size: 0.92rem;
-    font-weight: 400;
+    color: var(--ink-soft);
+    font-size: 0.88rem;
+    font-weight: 900;
 }
 
 .tax-form input {
-    width: 100%;
-    min-height: 52px;
-    padding: 0.95rem 1rem;
-    border-radius: 8px;
-    border: 1px solid rgba(113, 187, 201, 0.25);
-    background: rgba(244, 249, 250, 0.9);
-    color: #34464e;
-    outline: none;
-    box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.72),
-        0 2px 6px rgba(19, 52, 61, 0.06);
-    transition:
-        border-color 0.2s ease,
-        box-shadow 0.2s ease,
-        transform 0.2s ease;
-}
-
-.tax-form input::placeholder {
-    color: #9baeb6;
-}
-
-.tax-form input:focus {
-    border-color: rgba(77, 158, 169, 0.55);
-    box-shadow: 0 0 0 4px rgba(77, 158, 169, 0.12);
-}
-
-.tax-form input:hover {
-    transform: translateY(-1px);
+    min-height: 50px;
+    padding: 0 14px;
+    background: rgba(255, 255, 255, 0.96);
 }
 
 .tax-form button {
-    width: 100%;
-    margin-top: 4px;
-    padding: 0.95rem 1.4rem;
+    justify-self: end;
+    min-height: 46px;
+    padding: 0 22px;
     border-radius: 8px;
     color: #fff;
-    font-weight: 700;
+    font-weight: 950;
     background: var(--button);
-    box-shadow: 0 14px 30px rgba(77, 198, 220, 0.28);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    box-shadow: 0 12px 24px rgba(47, 147, 199, 0.22);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .tax-form button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 16px 30px rgba(19, 52, 61, 0.16);
+    transform: translateY(-1px);
+    box-shadow: 0 16px 28px rgba(47, 147, 199, 0.2);
 }
 
 .config-list {
-    width: 100%;
-    min-width: 0;
     padding: 22px;
-    border-radius: 8px;
-    border: var(--border);
-    background: rgba(255, 255, 255, 0.7);
-    box-shadow: var(--shadow);
-    backdrop-filter: blur(14px);
-    overflow: hidden;
 }
 
-.config-list h2 {
-    color: #18313b;
-    font-size: clamp(1.2rem, 2vw, 1.55rem);
-    line-height: 1.1;
-    font-weight: 500;
-    letter-spacing: 0;
+.list-heading {
     margin-bottom: 16px;
 }
 
-.config-list table {
-    width: 100%;
-    border-collapse: collapse;
-    table-layout: fixed;
+.rate-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 12px;
 }
 
-.config-list table colgroup col:last-child,
-.config-list td:last-child,
-.config-list th:last-child {
-    width: 190px;
+.rate-card {
+    min-height: 170px;
+    padding: 16px;
+    display: grid;
+    align-content: space-between;
+    gap: 14px;
+    border: 1px solid rgba(39, 105, 120, 0.12);
+    border-radius: 8px;
+    background:
+        linear-gradient(180deg, rgba(232, 247, 249, 0.72), rgba(255, 255, 255, 0.84));
 }
 
-.config-list thead th {
-    padding: 14px 16px;
-    text-align: left;
-    color: #2b4a56;
-    font-size: 0.86rem;
-    font-weight: 400;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-    border-bottom: 1px solid rgba(113, 187, 201, 0.18);
-    white-space: normal;
+.rate-main {
+    display: grid;
+    gap: 5px;
 }
 
-.config-list tbody td {
-    padding: 15px 16px;
-    color: #34464e;
-    border-bottom: 1px solid rgba(113, 187, 201, 0.12);
-    vertical-align: middle;
-
-    word-break: normal;
-    overflow-wrap: anywhere;
+.rate-main strong {
+    color: var(--ink);
+    font-size: 1.15rem;
+    line-height: 1.1;
+    font-weight: 950;
 }
 
-.config-list tbody tr {
-    transition: background-color 0.2s ease;
+.rate-main span {
+    color: var(--muted);
+    font-weight: 850;
 }
 
-.config-list tbody tr:hover {
-    background: rgba(90, 209, 224, 0.06);
+.rate-values {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
 }
 
-.config-list tbody tr:last-child td {
-    border-bottom: 0;
+.rate-values div {
+    padding: 10px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.74);
 }
 
-.config-list tbody:empty::before {
+.rate-values span {
     display: block;
-    padding: 18px 16px;
-    color: var(--subtitle);
-    line-height: 1.6;
-    background: rgba(248, 252, 253, 0.8);
-    border: 1px dashed rgba(113, 187, 201, 0.22);
-    border-radius: 8px;
+    margin-bottom: 5px;
+    color: var(--muted);
+    font-size: 0.76rem;
+    font-weight: 900;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
 }
 
-.config-list td:last-child {
+.rate-values strong {
+    color: var(--ink);
+    font-size: 1.05rem;
+    font-weight: 950;
+}
+
+.rate-actions {
     display: flex;
-    gap: 8px;
     flex-wrap: wrap;
-    white-space: normal;
-    vertical-align: middle;
+    gap: 8px;
 }
 
-
-.config-list button,
-.config-list a {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 38px;
-    padding: 0.55rem 0.9rem;
+.rate-actions button {
+    min-height: 36px;
+    padding: 0 12px;
     border-radius: 8px;
-    font-weight: 700;
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease,
-        opacity 0.2s ease;
-}
-
-.config-list button:hover,
-.config-list a:hover {
-    transform: translateY(-1px);
-}
-
-.config-list button {
     color: #fff;
+    font-size: 0.84rem;
+    font-weight: 950;
     background: var(--button);
-    box-shadow: 0 10px 20px rgba(77, 198, 220, 0.22);
+    box-shadow: 0 10px 20px rgba(47, 147, 199, 0.18);
 }
 
-.config-list .is-secondary,
-.config-list a {
-    color: #2f6b7b;
-    background: rgba(90, 209, 224, 0.12);
+.rate-actions .is-secondary {
+    color: var(--ink-soft);
+    background: rgba(66, 199, 216, 0.16);
     box-shadow: none;
 }
 
-@media (max-width: 760px) {
-    main {
-        padding-top: 22px;
-    }
+.empty-rates {
+    min-height: 140px;
+    display: grid;
+    place-items: center;
+    color: var(--muted);
+    border: 1px dashed rgba(39, 105, 120, 0.2);
+    border-radius: 8px;
+    background: rgba(248, 252, 253, 0.72);
+    font-weight: 850;
+}
 
-    .content {
-        grid-template-columns: 1fr;
-    }
-
-
-    .tax-form {
-        padding: 18px;
-        border-radius: 8px;
-    }
-
-    .config-list {
-        padding: 18px;
-        border-radius: 8px;
+@media (max-width: 1100px) {
+    .form-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
-@media (max-width: 520px) {
-    .content {
-        width: min(100%, calc(100% - 20px));
+@media (max-width: 760px) {
+    .config-header {
+        grid-template-columns: 1fr;
+        padding: 20px;
+    }
+
+    .tax-form,
+    .config-list {
+        padding: 18px;
+    }
+
+    .form-grid,
+    .rate-values {
+        grid-template-columns: 1fr;
     }
 
     .tax-form button {
         width: 100%;
     }
+}
 
-    .config-list thead th,
-    .config-list tbody td {
-        padding-inline: 12px;
-        font-size: 0.82rem;
+@media (max-width: 520px) {
+    .config-header h1 {
+        font-size: 1.75rem;
     }
 
-    .config-list td:last-child {
-        gap: 6px;
+    .rate-list {
+        grid-template-columns: 1fr;
     }
 }

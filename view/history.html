@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vex - Historico</title>
+    <title>VEX - Historico</title>
     <link rel="stylesheet" href="../style/global.css">
     <link rel="stylesheet" href="../style/history.css">
     <script src="../script/api.js" defer></script>
@@ -17,23 +17,24 @@
     <main>
         <div class="content">
             <section class="history-box" id="history" aria-labelledby="history-title">
-                <h1 id="history-title">Historico de Entradas e Saidas</h1>
-                <div class="history-tools">
-                    <label for="history-search">Buscar</label>
-                    <input type="search" id="history-search" placeholder="Placa, modelo, CPF, tipo ou data">
+                <div class="history-header">
+                    <div>
+                        <span>Historico</span>
+                        <h1 id="history-title">Entradas e saidas</h1>
+                    </div>
+                    <div class="history-tools">
+                        <label for="history-search">Buscar</label>
+                        <input type="search" id="history-search" placeholder="Placa, modelo, CPF, veiculo ou data">
+                    </div>
                 </div>
+
                 <div class="table-wrap">
                     <table>
                         <thead>
                             <tr>
-                                <th>Placa</th>
-                                <th>Modelo</th>
-                                <th>Marca</th>
-                                <th>Cor</th>
-                                <th>CPF do Proprietario</th>
-                                <th>Tipo de Veiculo</th>
-                                <th>Data e Hora de Entrada</th>
-                                <th>Data e Hora de Saida</th>
+                                <th>Veiculo</th>
+                                <th>Proprietario</th>
+                                <th>Status</th>
                             </tr>
                         </thead>
                         <tbody id="history-table">
