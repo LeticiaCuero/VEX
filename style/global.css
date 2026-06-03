@@ -80,6 +80,7 @@ button {
 input,
 select,
 textarea {
+    min-width: 0;
     width: 100%;
     border: 1px solid rgba(39, 105, 120, 0.18);
     border-radius: 8px;
@@ -351,7 +352,7 @@ table {
 
 @media (max-width: 620px) {
     body:has([data-site-sidebar]) {
-        padding-top: 132px;
+        padding-top: 148px;
     }
 
     .box-header {
@@ -366,5 +367,49 @@ table {
     .navegation nav ul {
         justify-content: space-between;
         gap: 6px;
+    }
+
+    .navegation nav a {
+        min-height: 34px;
+        padding: 0 8px;
+        font-size: 0.8rem;
+    }
+
+    .btn-logout {
+        width: 42px;
+        height: 42px;
+    }
+}
+
+@media (max-width: 420px) {
+    body:has([data-site-sidebar]) {
+        padding-top: 176px;
+    }
+
+    .box-header {
+        grid-template-columns: 1fr auto;
+        gap: 10px;
+    }
+
+    .logo {
+        width: 86px;
+    }
+
+    .navegation nav ul {
+        justify-content: flex-start;
+    }
+
+    .navegation nav a {
+        padding: 0 7px;
+        font-size: 0.76rem;
+    }
+
+    .logout-modal__actions {
+        flex-direction: column;
+    }
+
+    .logout-modal__cancel,
+    .logout-modal__confirm {
+        width: 100%;
     }
 }

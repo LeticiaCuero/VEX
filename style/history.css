@@ -241,10 +241,50 @@ tbody button {
 
 @media (max-width: 520px) {
     .history-box {
-        padding: 16px;
+        padding: 14px;
     }
 
     .history-header h1 {
         font-size: 1.75rem;
+    }
+
+    thead {
+        display: none;
+    }
+
+    tbody,
+    tbody tr,
+    tbody td {
+        display: block;
+        width: 100%;
+    }
+
+    .history-main-row {
+        display: grid;
+        gap: 10px;
+        padding: 14px 14px 8px;
+    }
+
+    .history-main-row td,
+    .history-detail-row td {
+        padding: 0;
+        border-top: 0;
+    }
+
+    .history-main-row td + td {
+        margin-top: 8px;
+    }
+
+    .history-detail-row td {
+        padding: 0 14px 14px;
+    }
+
+    .history-detail-grid {
+        padding: 12px;
+    }
+
+    .status-badge,
+    tbody button {
+        width: 100%;
     }
 }

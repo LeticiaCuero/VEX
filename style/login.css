@@ -155,3 +155,23 @@ button {
     }
 
 }
+
+@media (max-width: 420px) {
+    .login-page {
+        width: min(100%, calc(100% - 18px));
+        padding: 12px 0;
+    }
+
+    .box-login {
+        padding: 18px;
+    }
+
+    .login-card-header img {
+        width: 94px;
+    }
+
+    .form-login input,
+    .form-login button[type="submit"] {
+        min-height: 46px;
+    }
+}

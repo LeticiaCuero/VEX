@@ -263,11 +263,30 @@ main {
 }
 
 @media (max-width: 520px) {
+    .config-header,
+    .tax-form,
+    .config-list {
+        padding: 14px;
+    }
+
     .config-header h1 {
         font-size: 1.75rem;
     }
 
     .rate-list {
         grid-template-columns: 1fr;
+    }
+
+    .form-heading,
+    .list-heading {
+        display: grid;
+    }
+
+    .rate-card {
+        min-height: auto;
+    }
+
+    .rate-actions button {
+        flex: 1 1 120px;
     }
 }

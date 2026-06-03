@@ -104,19 +104,6 @@ main {
     background-repeat: no-repeat;
 }
 
-.rate-preview {
-    min-height: 50px;
-    display: flex;
-    align-items: center;
-    padding: 0.85rem 1rem;
-    border: 1px dashed rgba(47, 147, 199, 0.36);
-    border-radius: 8px;
-    color: #23586a;
-    background: rgba(232, 247, 249, 0.72);
-    font-size: 0.92rem;
-    line-height: 1.4;
-}
-
 .btn-register,
 .history-box button {
     min-height: 44px;
@@ -312,6 +299,84 @@ tbody tr:hover {
     .register-box form {
         grid-template-columns: 1fr;
     }
+
+    .table-wrap {
+        border: 0;
+        background: transparent;
+    }
+
+    table,
+    thead,
+    tbody,
+    tr,
+    th,
+    td {
+        display: block;
+        width: 100%;
+    }
+
+    thead {
+        display: none;
+    }
+
+    tbody {
+        display: grid;
+        gap: 12px;
+    }
+
+    tbody tr {
+        display: grid;
+        gap: 8px;
+        padding: 14px;
+        border: 1px solid rgba(39, 105, 120, 0.12);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.78);
+    }
+
+    tbody td {
+        display: grid;
+        grid-template-columns: 96px minmax(0, 1fr);
+        gap: 10px;
+        padding: 0;
+        border-top: 0;
+        font-size: 0.9rem;
+    }
+
+    tbody td::before {
+        color: var(--muted);
+        font-size: 0.76rem;
+        font-weight: 950;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+    }
+
+    tbody td:nth-child(1)::before {
+        content: "Placa";
+    }
+
+    tbody td:nth-child(2)::before {
+        content: "Veiculo";
+    }
+
+    tbody td:nth-child(3)::before {
+        content: "CPF";
+    }
+
+    tbody td:nth-child(4)::before {
+        content: "Tipo";
+    }
+
+    tbody td:nth-child(5)::before {
+        content: "Entrada";
+    }
+
+    tbody td:nth-child(6)::before {
+        content: "Acao";
+    }
+
+    .history-box button {
+        width: 100%;
+    }
 }
 
 @media (max-width: 520px) {
@@ -321,6 +386,17 @@ tbody tr:hover {
 
     .exit-modal__box {
         padding: 20px;
+        max-height: calc(100vh - 28px);
+        overflow-y: auto;
+    }
+
+    .exit-modal__summary div {
+        display: grid;
+        gap: 4px;
+    }
+
+    .exit-modal__summary dd {
+        text-align: left;
     }
 
     .exit-modal__actions {

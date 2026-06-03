@@ -3,7 +3,6 @@ requireSession();
 const vehicleForm = document.querySelector('.register-box form');
 const vehicleTypeSelect = document.querySelector('#tipo');
 const stayTypeSelect = document.querySelector('#estadia');
-const ratePreview = document.querySelector('#rate-preview');
 const exitModal = document.querySelector('.exit-modal');
 const exitSummary = document.querySelector('#exit-summary');
 const exitConfirmButton = document.querySelector('[data-exit-confirm]');
@@ -161,32 +160,6 @@ function formatElapsedMinutes(minutes) {
     return `${wholeHours}h ${String(restMinutes).padStart(2, '0')}min`;
 }
 
-function refreshRatePreview() {
-    if (!ratePreview) return;
-
-    const selectedVehicleType = vehicleTypeSelect.value;
-    const selectedStayType = stayTypeSelect.value;
-
-    if (!selectedVehicleType || !selectedStayType) {
-        ratePreview.textContent = 'Selecione veiculo e estadia para ver os valores.';
-        return;
-    }
-
-    const selectedRate = findRateForStayChoice(selectedVehicleType, selectedStayType);
-
-    if (!selectedRate) {
-        ratePreview.textContent = 'Nao existe tarifa cadastrada para essa combinacao.';
-        return;
-    }
-
-    if (isNormalStay(selectedStayType)) {
-        ratePreview.textContent = 'Normal: o valor sera definido pelo tempo de permanencia.';
-        return;
-    }
-
-    ratePreview.textContent = `Valor inicial: ${formatCurrency(selectedRate.value)} | Adicional por hora: ${formatCurrency(selectedRate.additional || 0)}`;
-}
-
 function refreshStayTypeOptions() {
     const selectedVehicleType = vehicleTypeSelect.value;
     const rates = selectedVehicleType
@@ -204,7 +177,6 @@ function refreshStayTypeOptions() {
 
     fillSelect(stayTypeSelect, stayTypes);
     stayTypeSelect.value = '';
-    refreshRatePreview();
 }
 
 async function loadRateOptions() {
@@ -213,11 +185,9 @@ async function loadRateOptions() {
     const vehicleTypes = [...new Set(rateCatalog.map((rate) => rate.vehicle_type))];
     fillSelect(vehicleTypeSelect, vehicleTypes);
     refreshStayTypeOptions();
-    refreshRatePreview();
 }
 
 vehicleTypeSelect?.addEventListener('change', refreshStayTypeOptions);
-stayTypeSelect?.addEventListener('change', refreshRatePreview);
 
 vehicleForm?.addEventListener('submit', async (event) => {
     event.preventDefault();

@@ -626,6 +626,7 @@ main {
 
     .box-header {
         gap: 16px;
+        grid-template-columns: 1fr auto;
     }
 
     .logo-img {
@@ -633,11 +634,13 @@ main {
     }
 
     .btn-acess {
+        width: 100%;
         min-height: 40px;
         padding: 0 0.9rem;
     }
 
     .navegation nav ul {
+        justify-content: flex-start;
         gap: 6px;
     }
 
@@ -656,7 +659,8 @@ main {
     .section-heading h2,
     .section-text h2,
     .cta-content h2 {
-        font-size: 2rem;
+        font-size: 1.85rem;
+        line-height: 1.08;
     }
 
     .box-gestao,
@@ -691,5 +695,38 @@ main {
     .qr-card img {
         width: 190px;
         height: 190px;
+    }
+}
+
+@media (max-width: 420px) {
+    .box-header {
+        grid-template-columns: 1fr;
+    }
+
+    .acess {
+        justify-content: stretch;
+    }
+
+    .navegation nav a {
+        padding: 0 8px;
+        font-size: 0.8rem;
+    }
+
+    .home > .title p,
+    .section-heading h2,
+    .section-text h2,
+    .cta-content h2 {
+        font-size: 1.65rem;
+    }
+
+    .section-heading p,
+    .section-text p,
+    .cta-content p,
+    .highlight-box p,
+    .card p,
+    .demo-box p,
+    .ods-card p,
+    .team-card p {
+        font-size: 0.94rem;
     }
 }

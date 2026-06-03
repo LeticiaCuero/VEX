@@ -65,7 +65,7 @@ function renderHourChart(hours) {
     hourChart.innerHTML = visibleHours.map((hour) => `
         <div class="hour-item">
             <div class="hour-track">
-                <span style="height: ${Math.max((hour.total / maxTotal) * 100, hour.total ? 10 : 0)}%"></span>
+                <span style="height: ${Math.max((hour.total / maxTotal) * 100, hour.total ? 10 : 0)}%; --bar-width: ${Math.max((hour.total / maxTotal) * 100, hour.total ? 8 : 0)}%"></span>
             </div>
             <small>${escapeHtml(hour.label)}</small>
             <strong>${hour.total}</strong>
