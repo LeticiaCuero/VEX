@@ -24,10 +24,6 @@ function fillSelect(select, values) {
     });
 }
 
-function findRate(vehicleType, stayType) {
-    return rateCatalog.find((rate) => rate.vehicle_type === vehicleType && rate.stay_type === stayType);
-}
-
 function normalizeStayType(value) {
     return String(value || '')
         .normalize('NFD')
@@ -59,6 +55,45 @@ function parseStayMinutes(stayType) {
     return 60;
 }
 
+function isDailyStay(stayType) {
+    const normalized = normalizeStayType(stayType);
+    return normalized === 'diaria' || normalized.includes('diaria') || normalized.includes('dia');
+}
+
+function isNormalStay(stayType) {
+    return normalizeStayType(stayType) === 'normal';
+}
+
+function getRatesForStayChoice(vehicleType, stayType) {
+    const rates = rateCatalog.filter((rate) => rate.vehicle_type === vehicleType);
+
+    if (isNormalStay(stayType)) {
+        return rates
+            .filter((rate) => !isDailyStay(rate.stay_type) && !normalizeStayType(rate.stay_type).includes('mensal'))
+            .sort((a, b) => parseStayMinutes(a.stay_type) - parseStayMinutes(b.stay_type));
+    }
+
+    if (isDailyStay(stayType)) {
+        return rates.filter((rate) => isDailyStay(rate.stay_type));
+    }
+
+    return rates.filter((rate) => rate.stay_type === stayType);
+}
+
+function findRateForStayChoice(vehicleType, stayType, elapsedMinutes = 0) {
+    const rates = getRatesForStayChoice(vehicleType, stayType);
+
+    if (!rates.length) {
+        return null;
+    }
+
+    if (isNormalStay(stayType)) {
+        return rates.find((rate) => elapsedMinutes <= parseStayMinutes(rate.stay_type)) || rates[rates.length - 1];
+    }
+
+    return rates[0];
+}
+
 function resolveAdditionalValue(rate, initialValue, initialMinutes) {
     const additionalValue = Number(rate.additional || 0);
 
@@ -70,12 +105,12 @@ function resolveAdditionalValue(rate, initialValue, initialMinutes) {
 }
 
 function calculateExitAmount(vehicle) {
-    const rate = findRate(vehicle.vehicle_type, vehicle.stay_type);
     const entryDate = new Date(vehicle.entry_at);
     const exitDate = new Date();
     const elapsedMs = Math.max(exitDate - entryDate, 0);
     const elapsedMinutes = Math.max(Math.round(elapsedMs / (1000 * 60)), 0);
-    const initialMinutes = parseStayMinutes(vehicle.stay_type);
+    const rate = findRateForStayChoice(vehicle.vehicle_type, vehicle.stay_type, elapsedMinutes);
+    const initialMinutes = parseStayMinutes(rate?.stay_type || vehicle.stay_type);
     const additionalStartMinutes = Math.max(initialMinutes, 60);
     const exceededMinutes = Math.max(elapsedMinutes - additionalStartMinutes, 0);
     const chargedAdditionalHours = Math.ceil(exceededMinutes / 60);
@@ -137,10 +172,15 @@ function refreshRatePreview() {
         return;
     }
 
-    const selectedRate = findRate(selectedVehicleType, selectedStayType);
+    const selectedRate = findRateForStayChoice(selectedVehicleType, selectedStayType);
 
     if (!selectedRate) {
         ratePreview.textContent = 'Nao existe tarifa cadastrada para essa combinacao.';
+        return;
+    }
+
+    if (isNormalStay(selectedStayType)) {
+        ratePreview.textContent = 'Normal: o valor sera definido pelo tempo de permanencia.';
         return;
     }
 
@@ -149,22 +189,20 @@ function refreshRatePreview() {
 
 function refreshStayTypeOptions() {
     const selectedVehicleType = vehicleTypeSelect.value;
+    const rates = selectedVehicleType
+        ? rateCatalog.filter((rate) => rate.vehicle_type === selectedVehicleType)
+        : rateCatalog;
+    const stayTypes = [];
 
-    if (!selectedVehicleType) {
-        const allStayTypes = [...new Set(rateCatalog.map((rate) => rate.stay_type))];
-        fillSelect(stayTypeSelect, allStayTypes);
-        stayTypeSelect.value = '';
-        refreshRatePreview();
-        return;
+    if (rates.some((rate) => !isDailyStay(rate.stay_type) && !normalizeStayType(rate.stay_type).includes('mensal'))) {
+        stayTypes.push('Normal');
     }
 
-    const availableStayTypes = [...new Set(
-        rateCatalog
-            .filter((rate) => rate.vehicle_type === selectedVehicleType)
-            .map((rate) => rate.stay_type)
-    )];
+    if (rates.some((rate) => isDailyStay(rate.stay_type))) {
+        stayTypes.push('Diaria');
+    }
 
-    fillSelect(stayTypeSelect, availableStayTypes);
+    fillSelect(stayTypeSelect, stayTypes);
     stayTypeSelect.value = '';
     refreshRatePreview();
 }
@@ -173,9 +211,8 @@ async function loadRateOptions() {
     rateCatalog = await apiFetch('/api/rates');
 
     const vehicleTypes = [...new Set(rateCatalog.map((rate) => rate.vehicle_type))];
-    const stayTypes = [...new Set(rateCatalog.map((rate) => rate.stay_type))];
     fillSelect(vehicleTypeSelect, vehicleTypes);
-    fillSelect(stayTypeSelect, stayTypes);
+    refreshStayTypeOptions();
     refreshRatePreview();
 }
 
@@ -207,6 +244,7 @@ vehicleForm?.addEventListener('submit', async (event) => {
 
         vehicleForm.reset();
         refreshStayTypeOptions();
+        await loadPendingVehicles();
         alert('Veiculo registrado com sucesso.');
     } catch (error) {
         alert(error.message);
@@ -248,6 +286,7 @@ function openExitModal(vehicle) {
             <div><dt>Placa</dt><dd>${escapeHtml(vehicle.plate)}</dd></div>
             <div><dt>Veículo</dt><dd>${escapeHtml(vehicle.brand)} ${escapeHtml(vehicle.model)}</dd></div>
             <div><dt>Estadia</dt><dd>${escapeHtml(vehicle.stay_type)}</dd></div>
+            <div><dt>Tarifa aplicada</dt><dd>${escapeHtml(calculation.rate?.stay_type || '-')}</dd></div>
             <div><dt>Entrada</dt><dd>${formatDateTime(vehicle.entry_at)}</dd></div>
             <div><dt>Tempo</dt><dd>${formatElapsedMinutes(calculation.elapsedMinutes)}</dd></div>
             <div><dt>Periodo inicial</dt><dd>${formatElapsedMinutes(calculation.initialMinutes)}</dd></div>

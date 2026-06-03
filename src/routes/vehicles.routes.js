@@ -59,6 +59,43 @@ function parseStayMinutes(stayType) {
   return 60;
 }
 
+function isDailyStay(stayType) {
+  const normalized = normalizeStayType(stayType);
+  return normalized === 'diaria' || normalized.includes('diaria') || normalized.includes('dia');
+}
+
+function isNormalStay(stayType) {
+  return normalizeStayType(stayType) === 'normal';
+}
+
+function getRatesForStayChoice(rates, stayType) {
+  if (isNormalStay(stayType)) {
+    return rates
+      .filter((rate) => !isDailyStay(rate.stay_type) && !normalizeStayType(rate.stay_type).includes('mensal'))
+      .sort((a, b) => parseStayMinutes(a.stay_type) - parseStayMinutes(b.stay_type));
+  }
+
+  if (isDailyStay(stayType)) {
+    return rates.filter((rate) => isDailyStay(rate.stay_type));
+  }
+
+  return rates.filter((rate) => rate.stay_type === stayType);
+}
+
+function findRateForStayChoice(rates, stayType, elapsedMinutes = 0) {
+  const matchingRates = getRatesForStayChoice(rates, stayType);
+
+  if (!matchingRates.length) {
+    return null;
+  }
+
+  if (isNormalStay(stayType)) {
+    return matchingRates.find((rate) => elapsedMinutes <= parseStayMinutes(rate.stay_type)) || matchingRates[matchingRates.length - 1];
+  }
+
+  return matchingRates[0];
+}
+
 function resolveAdditionalValue(rate, initial, initialMinutes) {
   const additional = Number(rate.additional || 0);
 
@@ -74,7 +111,7 @@ function calculateBilling(vehicle, rate, exitAt) {
   const exitDate = new Date(exitAt);
   const elapsedMs = Math.max(exitDate - entryDate, 0);
   const elapsedMinutes = Math.max(Math.round(elapsedMs / (1000 * 60)), 0);
-  const initialMinutes = parseStayMinutes(vehicle.stay_type);
+  const initialMinutes = parseStayMinutes(rate.stay_type);
   const additionalStartMinutes = Math.max(initialMinutes, 60);
   const exceededMinutes = Math.max(elapsedMinutes - additionalStartMinutes, 0);
   const additionalHours = Math.ceil(exceededMinutes / 60);
@@ -128,16 +165,14 @@ router.post('/', asyncHandler(async (req, res) => {
     return res.status(400).json({ message: 'Preencha todos os dados do veiculo.' });
   }
 
-  const { data: rate, error: rateError } = await supabaseAdmin
+  const { data: rates, error: rateError } = await supabaseAdmin
     .from('rates')
-    .select('id')
-    .eq('vehicle_type', payload.vehicle_type)
-    .eq('stay_type', payload.stay_type)
-    .maybeSingle();
+    .select('id, stay_type')
+    .eq('vehicle_type', payload.vehicle_type);
 
   if (rateError) throw rateError;
 
-  if (!rate) {
+  if (!findRateForStayChoice(rates || [], payload.stay_type)) {
     return res.status(400).json({ message: 'Nao existe tarifa configurada para esse tipo de veiculo e estadia.' });
   }
 
@@ -178,14 +213,17 @@ router.patch('/:id/exit', asyncHandler(async (req, res) => {
 
   if (vehicleError) throw vehicleError;
 
-  const { data: rate, error: rateError } = await supabaseAdmin
+  const elapsedMs = Math.max(new Date(exitAt) - new Date(vehicle.entry_at), 0);
+  const elapsedMinutes = Math.max(Math.round(elapsedMs / (1000 * 60)), 0);
+
+  const { data: rates, error: rateError } = await supabaseAdmin
     .from('rates')
-    .select('id, value, additional')
-    .eq('vehicle_type', vehicle.vehicle_type)
-    .eq('stay_type', vehicle.stay_type)
-    .maybeSingle();
+    .select('id, stay_type, value, additional')
+    .eq('vehicle_type', vehicle.vehicle_type);
 
   if (rateError) throw rateError;
+
+  const rate = findRateForStayChoice(rates || [], vehicle.stay_type, elapsedMinutes);
 
   if (!rate) {
     return res.status(400).json({ message: 'Tarifa nao encontrada para esse veiculo.' });
