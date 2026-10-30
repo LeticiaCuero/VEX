@@ -36,6 +36,9 @@ app.use('/view', express.static(path.join(__dirname, 'view')));
 app.use('/script', express.static(path.join(__dirname, 'script')));
 app.use('/style', express.static(path.join(__dirname, 'style')));
 app.use('/img', express.static(path.join(__dirname, 'img')));
+app.get('/favicon.ico', (_req, res) => {
+  res.sendFile(path.join(__dirname, 'img', 'favicon', 'favicon.ico'));
+});
 
 app.get(['/', '/index.html'], (_req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
