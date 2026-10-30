@@ -1,292 +1,127 @@
-main {
-    padding-bottom: 42px;
+﻿.tariff { max-width:1220px; min-height:calc(100dvh - 86px); margin:0 auto; padding:24px!important; background:#fff; }
+.tariff-heading { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; margin-bottom:20px; }
+.tariff-heading h1,.tariff-list h2 { margin:0; background:linear-gradient(90deg,#087fa3,#00b8df); background-clip:text; -webkit-background-clip:text; color:transparent; font-size:24px; }
+.btn { display:inline-flex; align-items:center; justify-content:center; gap:12px; padding:12px 20px; border:1px solid currentColor; border-radius:8px; color:#fff; background:linear-gradient(90deg,#009fe3 0%,#00b8df 54%,#00c8e8 100%); font:inherit; cursor:pointer; }
+.btn:disabled { opacity:.5; cursor:not-allowed; }
+.tariff-list { min-height:240px; padding:24px; border-radius:16px; background:#f5f7fa; box-shadow:0 2px 8px rgba(18,68,79,.05); }
+.tariff-list h2 { padding-bottom:12px; border-bottom:1px solid #d6dce3; font-size:20px; }
+.rate-list { margin:0; padding:0; }
+.rate-card { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; padding:20px 0; border-bottom:1px solid #d6dce3; }
+.rate-card:last-child { border-bottom:0; }
+.rate-main { min-width:150px; }
+.rate-main strong { display:block; margin-bottom:4px; color:#087fa3; font-size:18px; }
+.rate-main span,.rate-values span { color:#64748b; }
+.rate-values { display:flex; flex-wrap:wrap; gap:24px; margin:0; }
+.rate-values div { min-width:120px; }
+.rate-values span { display:block; font-size:14px; }
+.rate-values strong { display:block; margin-top:4px; }
+.rate-actions { display:flex; gap:8px; }
+.rate-actions button { padding:8px 14px; border:1px solid #b4c8d1; border-radius:8px; background:transparent; color:#087fa3; font:inherit; cursor:pointer; }
+.rate-actions button:hover { background:rgba(8,127,163,.08); }
+.empty-rates { margin:16px 0 0; color:#64748b; font-size:14px; }
+.modal { width:calc(100% - 32px); max-width:440px; max-height:calc(100dvh - 48px); padding:24px; overflow:auto; border:0; border-radius:16px; color:#202020; background:#fff; text-align:left; }
+.modal::backdrop { background:rgba(18,35,49,.55); }
+.modal-header { display:flex; align-items:center; justify-content:space-between; gap:16px; }
+.modal-header h2 { margin:0; color:#12444f; font-size:22px; }
+.modal-close { display:grid; place-items:center; width:36px; height:36px; padding:0; border:0; border-radius:8px; background:transparent; color:#12444f; font-size:26px; cursor:pointer; }
+.modal-content { margin-top:20px; }
+.tariff-form { display:flex; flex-direction:column; gap:12px; }
+.tariff-form .field { display:flex; flex-direction:column; gap:4px; }
+.tariff-form label { color:#64748b; }
+.tariff-form input { width:100%; padding:10px 12px; border:1px solid #cbd5e1; border-radius:8px; background:#fff; color:#202020; box-shadow:none; }
+.tariff-form input:focus { outline:none; border-color:#009fe3; box-shadow:none; }
+.tariff-form .btn { align-self:flex-end; margin-top:4px; }
+:root[data-theme='dark'] .tariff { background:#121820; }
+:root[data-theme='dark'] .tariff-list,:root[data-theme='dark'] .modal { background:#1d2733; color:#e5e7eb; }
+:root[data-theme='dark'] .tariff-list h2,:root[data-theme='dark'] .rate-card { border-color:#3b4a5c; }
+:root[data-theme='dark'] .rate-main span,:root[data-theme='dark'] .rate-values span,:root[data-theme='dark'] .empty-rates,:root[data-theme='dark'] .tariff-form label { color:#aebdce; }
+:root[data-theme='dark'] .modal-header h2,:root[data-theme='dark'] .modal-close { color:#d3e7ee; }
+:root[data-theme='dark'] .tariff-form input { background:#151e28; border-color:#3b4a5c; color:#e5e7eb; }
+:root[data-theme='dark'] .btn { border-color:transparent; }
+@media(max-width:600px){.tariff{padding:20px 16px!important}.tariff-list{padding:20px}.rate-card{align-items:flex-start;flex-direction:column}}
+
+/* O reset global remove a margem automatica nativa do dialog. */
+.tariff-modal {
+    position: fixed;
+    inset: 0;
+    margin: auto;
+    height: fit-content;
+    max-height: calc(100dvh - 48px);
 }
 
-.content {
-    width: min(100%, 1320px);
-    margin: 0 auto;
+body:has(.tariff-modal[open]) {
+    overflow: hidden;
 }
 
-.config-page {
-    display: grid;
-    gap: 18px;
+:root[data-theme='dark'] .rate-actions button:hover,
+:root[data-theme='dark'] .rate-actions button:focus-visible,
+:root[data-theme='dark'] .modal-close:hover,
+:root[data-theme='dark'] .modal-close:focus-visible {
+    background: #2b3949;
+    color: #d3e7ee;
 }
 
-.config-header {
-    display: grid;
-    grid-template-columns: minmax(280px, 1fr) minmax(260px, 430px);
-    align-items: end;
-    gap: 20px;
-    padding: 24px;
-    border: var(--border);
+/* Campos e espacamento do modal iguais aos componentes do VEX. */
+.tariff-form .field[hidden], .tariff-message[hidden] { display: none; }
+.tariff-form input, .tariff-form select {
+    width: 100%;
+    min-width: 0;
+    padding: 10px 12px;
+    border: 1px solid #cbd5e1;
     border-radius: 8px;
-    background: rgba(255, 255, 255, 0.86);
-    box-shadow: var(--shadow-soft);
-    backdrop-filter: blur(16px);
-}
-
-.config-header span,
-.form-heading span,
-.list-heading span {
-    display: inline-flex;
-    color: var(--blue);
-    font-size: 0.76rem;
-    font-weight: 950;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-}
-
-.config-header span {
-    margin-bottom: 8px;
-}
-
-.config-header h1 {
-    color: var(--ink);
-    font-size: clamp(1.85rem, 3vw, 2.75rem);
-    line-height: 1.04;
-    font-weight: 950;
-}
-
-.config-header p {
-    color: var(--muted);
-    line-height: 1.55;
-}
-
-.tax-form,
-.config-list {
-    border: var(--border);
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.86);
-    box-shadow: var(--shadow-soft);
-    backdrop-filter: blur(16px);
-}
-
-.tax-form {
-    padding: 22px;
-    display: grid;
-    gap: 18px;
-}
-
-.form-heading,
-.list-heading {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 16px;
-}
-
-.form-heading {
-    padding-bottom: 14px;
-    border-bottom: 1px solid rgba(39, 105, 120, 0.1);
-}
-
-.form-heading strong,
-.list-heading h2 {
-    display: block;
-    margin-top: 6px;
-    color: var(--ink);
-    font-size: clamp(1.15rem, 1.8vw, 1.55rem);
-    line-height: 1.12;
-    font-weight: 950;
-}
-
-.form-grid {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 14px;
-}
-
-.field {
-    display: grid;
-    gap: 7px;
-}
-
-.tax-form label {
-    color: var(--ink-soft);
-    font-size: 0.88rem;
-    font-weight: 900;
-}
-
-.tax-form input {
-    min-height: 50px;
-    padding: 0 14px;
-    background: rgba(255, 255, 255, 0.96);
-}
-
-.tax-form button {
-    justify-self: end;
-    min-height: 46px;
-    padding: 0 22px;
-    border-radius: 8px;
-    color: #fff;
-    font-weight: 950;
-    background: var(--button);
-    box-shadow: 0 12px 24px rgba(47, 147, 199, 0.22);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.tax-form button:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 16px 28px rgba(47, 147, 199, 0.2);
-}
-
-.config-list {
-    padding: 22px;
-}
-
-.list-heading {
-    margin-bottom: 16px;
-}
-
-.rate-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 12px;
-}
-
-.rate-card {
-    min-height: 170px;
-    padding: 16px;
-    display: grid;
-    align-content: space-between;
-    gap: 14px;
-    border: 1px solid rgba(39, 105, 120, 0.12);
-    border-radius: 8px;
-    background:
-        linear-gradient(180deg, rgba(232, 247, 249, 0.72), rgba(255, 255, 255, 0.84));
-}
-
-.rate-main {
-    display: grid;
-    gap: 5px;
-}
-
-.rate-main strong {
-    color: var(--ink);
-    font-size: 1.15rem;
-    line-height: 1.1;
-    font-weight: 950;
-}
-
-.rate-main span {
-    color: var(--muted);
-    font-weight: 850;
-}
-
-.rate-values {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px;
-}
-
-.rate-values div {
-    padding: 10px;
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.74);
-}
-
-.rate-values span {
-    display: block;
-    margin-bottom: 5px;
-    color: var(--muted);
-    font-size: 0.76rem;
-    font-weight: 900;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-}
-
-.rate-values strong {
-    color: var(--ink);
-    font-size: 1.05rem;
-    font-weight: 950;
-}
-
-.rate-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-
-.rate-actions button {
-    min-height: 36px;
-    padding: 0 12px;
-    border-radius: 8px;
-    color: #fff;
-    font-size: 0.84rem;
-    font-weight: 950;
-    background: var(--button);
-    box-shadow: 0 10px 20px rgba(47, 147, 199, 0.18);
-}
-
-.rate-actions .is-secondary {
-    color: var(--ink-soft);
-    background: rgba(66, 199, 216, 0.16);
+    background: #fff;
+    color: #202020;
+    font: inherit;
     box-shadow: none;
 }
+.tariff-form input:focus, .tariff-form select:focus {
+    outline: none;
+    border-color: #009fe3;
+    box-shadow: none;
+}
+.tariff-message { margin: 16px 0 0; color: #64748b; font-size: 14px; line-height: 1.5; }
+:root[data-theme='dark'] .tariff-form input,
+:root[data-theme='dark'] .tariff-form select {
+    background: #151e28;
+    border-color: #3b4a5c;
+    color: #e5e7eb;
+}
+:root[data-theme='dark'] .tariff-form input:focus,
+:root[data-theme='dark'] .tariff-form select:focus { border-color: #00b8df; }
+:root[data-theme='dark'] .tariff-message { color: #aebdce; }
 
-.empty-rates {
-    min-height: 140px;
-    display: grid;
-    place-items: center;
-    color: var(--muted);
-    border: 1px dashed rgba(39, 105, 120, 0.2);
-    border-radius: 8px;
-    background: rgba(248, 252, 253, 0.72);
-    font-weight: 850;
+/* Bordas discretas das acoes no tema escuro, inclusive hover e foco. */
+:root[data-theme='dark'] .rate-actions button,
+:root[data-theme='dark'] .rate-actions button:hover,
+:root[data-theme='dark'] .rate-actions button:focus-visible {
+    border-color: #3b4a5c;
+    color: #66c5db;
 }
 
-@media (max-width: 1100px) {
-    .form-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
+.delete-tariff-modal p { line-height: 1.5; color: #64748b; }
+.delete-tariff-summary { margin-top: 12px; font-weight: 600; }
+.delete-tariff-actions { display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px; }
+.delete-tariff-actions button { padding: 10px 16px; border: 1px solid transparent; border-radius: 8px; font: inherit; cursor: pointer; }
+.delete-tariff-cancel { background: #e5edf3; color: #12444f; }
+.delete-tariff-cancel:hover { background: #d6dce3; }
+.delete-tariff-confirm { background: #dc2626; color: #fff; }
+.delete-tariff-confirm:hover { background: #b91c1c; }
+.delete-tariff-modal button:disabled { opacity: .5; cursor: wait; }
+:root[data-theme='dark'] .delete-tariff-modal p { color: #aebdce; }
+:root[data-theme='dark'] .delete-tariff-cancel { background: #2b3949; color: #d3e7ee; }
+:root[data-theme='dark'] .delete-tariff-cancel:hover { background: #3b4a5c; }
+body:has(.delete-tariff-modal[open]) { overflow: hidden; }
+@media (max-width: 400px) { .delete-tariff-actions { flex-direction: column; } }
+
+.delete-tariff-modal .modal-header {
+    padding-bottom: 16px;
+    border-bottom: 1px solid #d6dce3;
 }
-
-@media (max-width: 760px) {
-    .config-header {
-        grid-template-columns: 1fr;
-        padding: 20px;
-    }
-
-    .tax-form,
-    .config-list {
-        padding: 18px;
-    }
-
-    .form-grid,
-    .rate-values {
-        grid-template-columns: 1fr;
-    }
-
-    .tax-form button {
-        width: 100%;
-    }
+.delete-tariff-actions {
+    padding-top: 16px;
+    border-top: 1px solid #d6dce3;
 }
-
-@media (max-width: 520px) {
-    .config-header,
-    .tax-form,
-    .config-list {
-        padding: 14px;
-    }
-
-    .config-header h1 {
-        font-size: 1.75rem;
-    }
-
-    .rate-list {
-        grid-template-columns: 1fr;
-    }
-
-    .form-heading,
-    .list-heading {
-        display: grid;
-    }
-
-    .rate-card {
-        min-height: auto;
-    }
-
-    .rate-actions button {
-        flex: 1 1 120px;
-    }
+:root[data-theme='dark'] .delete-tariff-modal .modal-header,
+:root[data-theme='dark'] .delete-tariff-actions {
+    border-color: #3b4a5c;
 }

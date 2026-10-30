@@ -41,8 +41,11 @@ app.get(['/', '/index.html'], (_req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-app.use((_req, res) => {
-  res.status(404).json({ message: 'Rota nao encontrada.' });
+app.use((req, res) => {
+  if (req.path.startsWith('/api/') || !req.accepts('html')) {
+    return res.status(404).json({ message: 'Rota não encontrada.' });
+  }
+  return res.status(404).sendFile(path.join(__dirname, 'view', '404.html'));
 });
 
 app.use((err, _req, res, _next) => {

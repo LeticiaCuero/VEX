@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
@@ -7,6 +7,8 @@
     <title>VEX - Cadastro de Veiculos</title>
     <link rel="stylesheet" href="../style/global.css">
     <link rel="stylesheet" href="../style/home.css">
+    <link rel="stylesheet" href="../style/popup.css">
+    <script src="../script/popup.js" defer></script>
     <script src="../script/api.js" defer></script>
     <script src="../script/sidebar.js" defer></script>
     <script src="../script/home.js" defer></script>
@@ -23,27 +25,11 @@
                 </div>
                 <form method="post">
                     <div class="field">
-                        <label for="placa">Placa do veiculo</label>
+                        <label for="placa">Placa do veículo</label>
                         <input type="text" id="placa" name="placa" required>
                     </div>
                     <div class="field">
-                        <label for="modelo">Modelo do veiculo</label>
-                        <input type="text" id="modelo" name="modelo" required>
-                    </div>
-                    <div class="field">
-                        <label for="marca">Marca do veiculo</label>
-                        <input type="text" id="marca" name="marca" required>
-                    </div>
-                    <div class="field">
-                        <label for="cor">Cor do veiculo</label>
-                        <input type="text" id="cor" name="cor" required>
-                    </div>
-                    <div class="field">
-                        <label for="cpf">CPF</label>
-                        <input type="text" id="cpf" name="cpf" autocomplete="off" required>
-                    </div>
-                    <div class="field">
-                        <label for="tipo">Veiculo</label>
+                        <label for="tipo">Veículo</label>
                         <select id="tipo" name="tipo" required>
                             <option value="" selected disabled>Selecione</option>
                         </select>
@@ -54,6 +40,25 @@
                             <option value="" selected disabled>Selecione</option>
                         </select>
                     </div>
+                    <fieldset class="optional-fields">
+                        <legend>Opcional</legend>
+                        <div class="field">
+                            <label for="modelo">Modelo do veículo</label>
+                            <input type="text" id="modelo" name="modelo">
+                        </div>
+                        <div class="field">
+                            <label for="marca">Marca do veículo</label>
+                            <input type="text" id="marca" name="marca">
+                        </div>
+                        <div class="field">
+                            <label for="cor">Cor do veículo</label>
+                            <input type="text" id="cor" name="cor">
+                        </div>
+                        <div class="field">
+                            <label for="cpf">CPF</label>
+                            <input type="text" id="cpf" name="cpf" autocomplete="off">
+                        </div>
+                    </fieldset>
                     <div class="field field--action">
                         <button type="submit" class="btn-register">Registrar</button>
                     </div>
@@ -70,12 +75,15 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>Placa</th>
-                                <th>Veiculo</th>
-                                <th>CPF</th>
-                                <th>Veiculo</th>
-                                <th>Entrada</th>
-                                <th>Acao</th>
+                                <th scope="col">Ação</th>
+                                <th scope="col">Placa</th>
+                                <th scope="col">Modelo</th>
+                                <th scope="col">Marca</th>
+                                <th scope="col">Cor</th>
+                                <th scope="col">CPF</th>
+                                <th scope="col">Tipo de veículo</th>
+                                <th scope="col">Estadia</th>
+                                <th scope="col">Entrada</th>
                             </tr>
                         </thead>
                         <tbody id="pending-table">
@@ -93,10 +101,15 @@
             <div class="exit-modal__summary" id="exit-summary"></div>
             <div class="exit-modal__actions">
                 <button class="exit-modal__cancel" type="button" data-exit-cancel>Cancelar</button>
-                <button class="exit-modal__confirm" type="button" data-exit-confirm>Confirmar saida</button>
+                <button class="exit-modal__confirm" type="button" data-exit-confirm>Confirmar</button>
             </div>
         </div>
     </div>
 </body>
 
 </html>
+
+
+
+
+

@@ -413,3 +413,209 @@ table {
         width: 100%;
     }
 }
+/* Cabeçalho visual do VEX */
+body:has([data-site-sidebar]) { padding-left: 0; }
+body:has([data-site-sidebar]) main { padding: 0; }
+.app-header { background: #f5f7fa; }
+.app-header-box { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 24px; max-width: 1200px; margin: 0 auto; padding: 20px 24px; }
+.app-logo { position: relative; width: 140px; height: 46px; }
+.app-logo img { position: absolute; top: 50%; transform: translateY(-50%); width: 140px; height: auto; }
+.app-header-title { margin: 0; background: linear-gradient(90deg, #087fa3, #00b8df); background-clip: text; -webkit-background-clip: text; color: transparent; font-size: 24px; font-weight: 600; text-align: center; }
+.header-menu { position: relative; justify-self: end; display: flex; align-items: center; gap: 8px; }
+.theme-toggle, .hamburger { display: grid; place-items: center; width: 44px; height: 44px; padding: 8px; border: 0; border-radius: 8px; background: transparent; cursor: pointer; }
+.theme-toggle { width: 40px; height: 40px; color: #12444f; font-size: 23px; }
+.theme-sun { display: none; }
+.hamburger { display: flex; flex-direction: column; gap: 5px; }
+.hamburger span { width: 24px; height: 2px; border-radius: 2px; background: #12444f; }
+.theme-toggle:hover, .hamburger:hover { background: #e5edf3; }
+.theme-toggle:focus-visible, .hamburger:focus-visible, .app-logo:focus-visible { outline: 2px solid #009fe3; outline-offset: 4px; }
+.header-menu-nav { position: fixed; top: 0; right: 0; bottom: 0; z-index: 101; width: min(320px, 85vw); padding: 24px; overflow-y: auto; background: #fff; box-shadow: -8px 0 24px rgba(18, 68, 79, 0.12); }
+.header-menu-nav[hidden], .menu-overlay[hidden] { display: none; }
+.menu-overlay { position: fixed; inset: 0; z-index: 100; padding: 0; border: 0; background: rgba(18, 35, 49, 0.45); cursor: pointer; }
+.header-menu-nav ul { margin: 0; padding: 0; list-style: none; }
+.header-menu-nav a, .menu-logout { display: block; width: 100%; padding: 12px 16px; border: 0; border-radius: 6px; background: transparent; color: #12444f; font: inherit; text-align: left; text-decoration: none; cursor: pointer; }
+.header-menu-nav a:hover, .header-menu-nav a:focus-visible, .header-menu-nav a[aria-current='page'], .menu-logout:hover { background: #f5f7fa; color: #009fe3; }
+.header-menu-exit { margin-top: 8px; padding-top: 8px; border-top: 1px solid #e5edf3; }
+:root[data-theme='dark'] body { background: #121820; color: #e5e7eb; }
+:root[data-theme='dark'] .app-header, :root[data-theme='dark'] .header-menu-nav { background: #1d2733; color: #e5e7eb; }
+:root[data-theme='dark'] .app-header-title { background: none; color: #66c5db; }
+:root[data-theme='dark'] .hamburger span { background: #d3e7ee; }
+:root[data-theme='dark'] .theme-toggle { color: #d3e7ee; }
+:root[data-theme='dark'] .theme-sun { display: inline; }
+:root[data-theme='dark'] .theme-moon { display: none; }
+:root[data-theme='dark'] .header-menu-nav a, :root[data-theme='dark'] .menu-logout { color: #d3e7ee; }
+:root[data-theme='dark'] .header-menu-nav a:hover, :root[data-theme='dark'] .menu-logout:hover { background: #2b3949; }
+@media (max-width: 600px) { .app-header-box { padding: 16px; gap: 12px; } .app-logo, .app-logo img { width: 100px; } .app-header-title { font-size: 20px; } }
+
+/* Ajustes de proporção e alinhamento do cabeçalho */
+.app-logo {
+    display: flex;
+    align-items: center;
+    width: 140px;
+    height: 46px;
+}
+
+.app-logo img {
+    position: static;
+    width: auto;
+    height: 46px;
+    max-width: 140px;
+    object-fit: contain;
+    transform: none;
+}
+
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    line-height: 1;
+}
+
+.theme-icon {
+    width: 24px;
+    height: 24px;
+    flex: 0 0 24px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.theme-moon { background-image: url('../img/moon.svg'); }
+.theme-sun { background-image: url('../img/sun.svg'); }
+
+@media (max-width: 600px) {
+    .app-logo { width: 100px; height: 40px; }
+    .app-logo img { width: auto; height: 40px; max-width: 100px; }
+}
+
+/* Centralização vertical do botão hambúrguer */
+.header-menu {
+    height: 46px;
+    align-items: center;
+}
+
+.hamburger {
+    align-self: center;
+    display: flex;
+    flex: 0 0 44px;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    margin: 0;
+    padding: 8px;
+    line-height: 0;
+}
+
+.hamburger span {
+    display: block;
+    flex: 0 0 2px;
+    margin: 0;
+}
+
+:root[data-theme='dark'] .theme-sun {
+    filter: brightness(0) invert(1);
+}
+
+/* Logo restaurado para o tamanho anterior. */
+.app-logo {
+    position: relative;
+    display: block;
+    width: 140px;
+    height: 46px;
+}
+
+.app-logo img {
+    position: absolute;
+    top: 50%;
+    width: 140px;
+    max-width: none;
+    height: auto;
+    object-fit: initial;
+    transform: translateY(-50%);
+}
+
+@media (max-width: 600px) {
+    .app-logo { width: 100px; height: 46px; }
+    .app-logo img { width: 100px; max-width: none; height: auto; }
+}
+
+/* Fundos unificados: nenhuma area vazia revela o antigo degrade. */
+:root {
+    --page-bg: #fff;
+    --panel-bg: #f5f7fa;
+}
+:root[data-theme='dark'] {
+    --page-bg: #121820;
+    --panel-bg: #1d2733;
+}
+html { min-height: 100%; background: var(--page-bg); }
+body {
+    min-height: 100vh;
+    min-height: 100dvh;
+    background: var(--page-bg);
+    background-image: none;
+}
+body:has([data-site-sidebar]) {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+}
+body > [data-site-sidebar] { flex: 0 0 auto; }
+body:has([data-site-sidebar]) > main {
+    flex: 1 0 auto;
+    width: 100%;
+    min-height: 0;
+    background: var(--page-bg);
+}
+body:has([data-site-sidebar]) > main.tariff { max-width: 1220px; }
+:root[data-theme='dark'] body:has([data-site-sidebar]) > main { background: var(--page-bg); }
+
+/* Destaque da pagina atual no menu em tema escuro. */
+:root[data-theme='dark'] .header-menu-nav a[aria-current='page'],
+:root[data-theme='dark'] .header-menu-nav a[aria-current='page']:hover,
+:root[data-theme='dark'] .header-menu-nav a[aria-current='page']:focus-visible {
+    background: #2b3949;
+    color: #66c5db;
+}
+
+/* Estados interativos consistentes no tema escuro. */
+:root[data-theme='dark'] .theme-toggle:hover,
+:root[data-theme='dark'] .theme-toggle:focus-visible,
+:root[data-theme='dark'] .hamburger:hover,
+:root[data-theme='dark'] .hamburger:focus-visible,
+:root[data-theme='dark'] .header-menu-nav a:hover,
+:root[data-theme='dark'] .header-menu-nav a:focus-visible,
+:root[data-theme='dark'] .menu-logout:hover,
+:root[data-theme='dark'] .menu-logout:focus-visible,
+:root[data-theme='dark'] .modal-close:hover,
+:root[data-theme='dark'] .modal-close:focus-visible,
+:root[data-theme='dark'] .rate-actions button:hover,
+:root[data-theme='dark'] .rate-actions button:focus-visible {
+    background: #2b3949;
+    color: #d3e7ee;
+}
+
+:root[data-theme='dark'] .exit-modal__cancel {
+    background: #2b3949;
+    color: #d3e7ee;
+}
+:root[data-theme='dark'] .exit-modal__cancel:hover,
+:root[data-theme='dark'] .exit-modal__cancel:focus-visible {
+    background: #3b4a5c;
+    color: #fff;
+}
+:root[data-theme='dark'] button:focus-visible,
+:root[data-theme='dark'] a:focus-visible {
+    outline: 2px solid #66c5db;
+    outline-offset: 3px;
+}
+:root[data-theme='dark'] .header-menu-nav a[aria-current='page']:hover,
+:root[data-theme='dark'] .header-menu-nav a[aria-current='page']:focus-visible {
+    color: #66c5db;
+}
+
+:root[data-theme='dark'] .header-menu-exit {
+    border-color: #3b4a5c;
+}

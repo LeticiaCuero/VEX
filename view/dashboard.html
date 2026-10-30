@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
@@ -7,6 +7,8 @@
     <title>VEX - Dashboard</title>
     <link rel="stylesheet" href="../style/global.css">
     <link rel="stylesheet" href="../style/dashboard.css">
+    <link rel="stylesheet" href="../style/popup.css">
+    <script src="../script/popup.js" defer></script>
     <script src="../script/api.js" defer></script>
     <script src="../script/sidebar.js" defer></script>
     <script src="../script/dashboard.js" defer></script>
@@ -17,21 +19,12 @@
     <main>
         <div class="content">
             <section class="dashboard-box" id="dashboard" aria-labelledby="dashboard-title">
-                <div class="dashboard-header">
-                    <div>
-                        <span>Business intelligence</span>
-                        <h1 id="dashboard-title">Painel de desempenho</h1>
-                    </div>
-                    <p>Indicadores operacionais de entrada, saida, faturamento e perfil dos veiculos.</p>
-                </div>
-
                 <div class="kpi-grid" id="kpi-grid"></div>
 
                 <div class="analytics-grid">
                     <article class="chart-card chart-card--wide">
                         <div class="chart-heading">
                             <div>
-                                <span>Dia de pico</span>
                                 <h2>Movimento dos ultimos 7 dias</h2>
                             </div>
                             <strong id="peak-day-label">-</strong>
@@ -42,7 +35,6 @@
                     <article class="chart-card">
                         <div class="chart-heading">
                             <div>
-                                <span>Receita</span>
                                 <h2>Faturamento</h2>
                             </div>
                             <strong id="revenue-total">R$ 0,00</strong>
@@ -53,7 +45,6 @@
                     <article class="chart-card">
                         <div class="chart-heading">
                             <div>
-                                <span>Pico horario</span>
                                 <h2>Entradas por horario</h2>
                             </div>
                             <strong id="peak-hour-label">-</strong>
@@ -64,7 +55,6 @@
                     <article class="chart-card chart-card--wide">
                         <div class="chart-heading">
                             <div>
-                                <span>Frota</span>
                                 <h2>Total por tipo de veiculo</h2>
                             </div>
                         </div>
@@ -77,3 +67,7 @@
 </body>
 
 </html>
+
+
+
+

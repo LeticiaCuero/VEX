@@ -1,34 +1,29 @@
-<aside class="site-sidebar" aria-label="Menu principal">
-    <div class="box-header">
-        <a class="logo" href="home.html" aria-label="Ir para a página inicial">
-            <img src="../img/Vex.png" alt="VEX" class="logo-img">
+﻿<header class="app-header">
+    <div class="app-header-box">
+        <a class="app-logo" href="home.html" aria-label="Ir para a página inicial">
+            <img src="../img/Vex.png" alt="VEX">
         </a>
-        <div class="navegation">
-            <nav aria-label="Navegação principal">
-                <ul>
-                    <li><a href="home.html">Cadastro</a></li>
-                    <li><a href="history.html">Histórico</a></li>
-                    <li><a href="dashboard.html">Dashboard</a></li>
-                    <li><a href="config.html">Configurações</a></li>
-                </ul>
-            </nav>
-        </div>
-        <div class="logout">
-            <a class="btn-logout" href="login.html" aria-label="Sair">
-                <img src="../img/logout.svg" alt="">
-            </a>
+        <p class="app-header-title" data-page-title>Cadastro</p>
+        <div class="header-menu">
+            <button class="theme-toggle" type="button" aria-label="Ativar tema escuro">
+                <span class="theme-icon theme-sun" aria-hidden="true"></span>
+                <span class="theme-icon theme-moon" aria-hidden="true"></span>
+            </button>
+            <button class="hamburger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="site-menu"><span></span><span></span><span></span></button>
+            <button class="menu-overlay" type="button" aria-label="Fechar menu" hidden></button>
+            <aside id="site-menu" class="header-menu-nav" aria-label="Menu lateral" hidden>
+                <nav aria-label="Navegação do sistema">
+                    <ul>
+                        <li><a href="home.html">Cadastro</a></li>
+                        <li><a href="history.html">Histórico</a></li>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                        <li><a href="config.html">Tarifa</a></li>
+                        <li class="header-menu-exit"><button class="menu-logout" type="button">Sair</button></li>
+                    </ul>
+                </nav>
+            </aside>
         </div>
     </div>
-</aside>
+</header>
 
-<div class="logout-modal" aria-hidden="true">
-    <div class="logout-modal__backdrop" data-logout-cancel></div>
-    <div class="logout-modal__box" role="dialog" aria-modal="true" aria-labelledby="logout-modal-title">
-        <h2 id="logout-modal-title">Confirmar saída</h2>
-        <p>Tem certeza que deseja sair da conta?</p>
-        <div class="logout-modal__actions">
-            <button class="logout-modal__cancel" type="button" data-logout-cancel>Cancelar</button>
-            <a class="logout-modal__confirm" href="login.html" data-logout-confirm>Sair</a>
-        </div>
-    </div>
-</div>
+

@@ -1,4 +1,4 @@
-requireSession();
+﻿requireSession();
 
 const historyTable = document.querySelector('#history-table');
 const historySearch = document.querySelector('#history-search');
@@ -33,26 +33,7 @@ function vehicleMatchesSearch(vehicle, term) {
         return true;
     }
 
-    const searchableText = [
-        vehicle.plate,
-        vehicle.model,
-        vehicle.brand,
-        vehicle.color,
-        vehicle.owner_cpf,
-        vehicle.vehicle_type,
-        vehicle.stay_type,
-        formatDateTime(vehicle.entry_at),
-        formatDateTime(vehicle.exit_at),
-        formatElapsedMinutes(vehicle.billing_initial_minutes),
-        formatElapsedMinutes(vehicle.billing_additional_start_minutes),
-        formatElapsedMinutes(vehicle.billing_exceeded_minutes),
-        formatCurrency(vehicle.billing_initial),
-        formatCurrency(vehicle.billing_additional),
-        formatCurrency(vehicle.billing_additional_total),
-        formatCurrency(vehicle.billing_total)
-    ].join(' ').toLowerCase();
-
-    return searchableText.includes(term);
+    return String(vehicle.plate || '').toLowerCase().includes(term);
 }
 
 function renderBillingDetails(vehicle) {
@@ -82,7 +63,7 @@ function renderHistory(vehicles) {
     if (!vehicles.length) {
         historyTable.innerHTML = `
             <tr>
-                <td class="empty-history" colspan="3">Nenhum registro encontrado.</td>
+                <td class="empty-history" colspan="2">Nenhum registro encontrado.</td>
             </tr>
         `;
         return;
@@ -95,14 +76,8 @@ function renderHistory(vehicles) {
             <td>
                 <div class="vehicle-cell">
                     <strong>${escapeHtml(vehicle.plate)}</strong>
-                    <span>${escapeHtml(vehicle.brand)} ${escapeHtml(vehicle.model)} &middot; ${escapeHtml(vehicle.color)}</span>
+                    <span>${[vehicle.brand, vehicle.model, vehicle.color].filter(value => String(value || '').trim()).map(value => escapeHtml(value)).join(' ')}</span>
                     <small>${escapeHtml(vehicle.vehicle_type)} &middot; ${escapeHtml(vehicle.stay_type)}</small>
-                </div>
-            </td>
-            <td>
-                <div class="owner-cell">
-                    <span>CPF</span>
-                    <strong>${escapeHtml(vehicle.owner_cpf)}</strong>
                 </div>
             </td>
             <td>
@@ -115,7 +90,7 @@ function renderHistory(vehicles) {
         const detailRow = document.createElement('tr');
         detailRow.className = 'history-detail-row';
         detailRow.innerHTML = `
-            <td colspan="3">
+            <td colspan="2">
                 <div class="history-detail-grid">
                     <div class="period-cell">
                         <span>Entrada: ${formatDateTime(vehicle.entry_at)}</span>
@@ -149,7 +124,7 @@ historyTable?.addEventListener('click', async (event) => {
         historyVehicles = await apiFetch('/api/vehicles');
         applyHistorySearch();
     } catch (error) {
-        alert(error.message);
+        showPopup(error.message);
         button.disabled = false;
     }
 });
@@ -161,4 +136,8 @@ apiFetch('/api/vehicles')
         historyVehicles = vehicles;
         applyHistorySearch();
     })
-    .catch((error) => alert(error.message));
+    .catch((error) => showPopup(error.message));
+
+
+
+

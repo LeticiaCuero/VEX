@@ -1,4 +1,4 @@
-requireSession();
+﻿requireSession();
 
 const kpiGrid = document.querySelector('#kpi-grid');
 const dailyChart = document.querySelector('#daily-chart');
@@ -115,4 +115,5 @@ function renderDashboard(stats) {
 
 apiFetch('/api/dashboard')
     .then(renderDashboard)
-    .catch((error) => alert(error.message));
+    .catch((error) => showPopup(error.message));
+

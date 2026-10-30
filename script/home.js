@@ -165,15 +165,7 @@ function refreshStayTypeOptions() {
     const rates = selectedVehicleType
         ? rateCatalog.filter((rate) => rate.vehicle_type === selectedVehicleType)
         : rateCatalog;
-    const stayTypes = [];
-
-    if (rates.some((rate) => !isDailyStay(rate.stay_type) && !normalizeStayType(rate.stay_type).includes('mensal'))) {
-        stayTypes.push('Normal');
-    }
-
-    if (rates.some((rate) => isDailyStay(rate.stay_type))) {
-        stayTypes.push('Diaria');
-    }
+    const stayTypes = [...new Set(rates.map((rate) => rate.stay_type))];
 
     fillSelect(stayTypeSelect, stayTypes);
     stayTypeSelect.value = '';
@@ -215,9 +207,9 @@ vehicleForm?.addEventListener('submit', async (event) => {
         vehicleForm.reset();
         refreshStayTypeOptions();
         await loadPendingVehicles();
-        alert('Veiculo registrado com sucesso.');
+        showPopup('Veículo registrado com sucesso.', { success: true });
     } catch (error) {
-        alert(error.message);
+        showPopup(error.message);
     } finally {
         button.disabled = false;
         button.textContent = 'Registrar';
@@ -231,17 +223,24 @@ function renderPendingVehicles(vehicles) {
     tbody.innerHTML = '';
     pendingVehicles = vehicles;
 
+    if (!vehicles.length) {
+        tbody.innerHTML = '<tr><td colspan="9" class="empty-pending">Nenhuma entrada em aberto.</td></tr>';
+        return;
+    }
+
     vehicles.forEach((vehicle) => {
         const row = document.createElement('tr');
         row.innerHTML = `
+            <td><button type="button" data-exit-id="${vehicle.id}">Finalizar</button></td>
             <td>${escapeHtml(vehicle.plate)}</td>
-            <td>${escapeHtml(vehicle.brand)} ${escapeHtml(vehicle.model)} · ${escapeHtml(vehicle.color)}</td>
-            <td>${escapeHtml(vehicle.owner_cpf)}</td>
+            <td>${escapeHtml(vehicle.model || '-')}</td>
+            <td>${escapeHtml(vehicle.brand || '-')}</td>
+            <td>${escapeHtml(vehicle.color || '-')}</td>
+            <td>${escapeHtml(vehicle.owner_cpf || '-')}</td>
             <td>${escapeHtml(vehicle.vehicle_type)}</td>
+            <td>${escapeHtml(vehicle.stay_type)}</td>
             <td>${formatDateTime(vehicle.entry_at)}</td>
-            <td>
-                <button type="button" data-exit-id="${vehicle.id}">Finalizar</button>
-            </td>
+            
         `;
         tbody.appendChild(row);
     });
@@ -271,7 +270,7 @@ function openExitModal(vehicle) {
     `;
 
     exitConfirmButton.disabled = !calculation.rate;
-    exitConfirmButton.textContent = calculation.rate ? 'Confirmar saída' : 'Tarifa não encontrada';
+    exitConfirmButton.textContent = calculation.rate ? 'Confirmar' : 'Tarifa não encontrada';
     exitModal.classList.add('is-open');
     exitModal.setAttribute('aria-hidden', 'false');
     exitConfirmButton.focus();
@@ -319,9 +318,9 @@ exitConfirmButton?.addEventListener('click', async () => {
         closeExitModal();
         await loadPendingVehicles();
     } catch (error) {
-        alert(error.message);
+        showPopup(error.message);
         exitConfirmButton.disabled = false;
-        exitConfirmButton.textContent = 'Confirmar saída';
+        exitConfirmButton.textContent = 'Confirmar';
     }
 });
 
@@ -331,7 +330,12 @@ document.addEventListener('keydown', (event) => {
     }
 });
 
-loadRateOptions().catch((error) => alert(error.message));
+loadRateOptions().catch((error) => showPopup(error.message));
 loadPendingVehicles()
     .then(() => wirePendingTable())
-    .catch((error) => alert(error.message));
+    .catch((error) => showPopup(error.message));
+
+
+
+
+

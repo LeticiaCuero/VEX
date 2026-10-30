@@ -5,7 +5,10 @@
   "main": "server.js",
   "scripts": {
     "dev": "node --watch server.js",
-    "start": "node server.js"
+    "start": "node server.js",
+    "check:encoding": "node tools/check-encoding.js",
+    "prestart": "npm run check:encoding",
+    "predev": "npm run check:encoding"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.4",

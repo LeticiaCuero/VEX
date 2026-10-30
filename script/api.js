@@ -1,4 +1,4 @@
-function resolveApiBaseUrl() {
+﻿function resolveApiBaseUrl() {
     const configuredBaseUrl = typeof window.VEX_API_BASE_URL === 'string' ? window.VEX_API_BASE_URL.trim() : '';
 
     if (configuredBaseUrl) {
@@ -125,3 +125,4 @@ function escapeHtml(value) {
         "'": '&#39;'
     }[char]));
 }
+

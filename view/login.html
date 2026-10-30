@@ -1,36 +1,50 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VEX - Login</title>
     <link rel="stylesheet" href="../style/login.css">
+    <link rel="stylesheet" href="../style/popup.css">
+    <script src="../script/popup.js" defer></script>
     <script src="../script/api.js" defer></script>
     <script src="../script/login.js" defer></script>
 </head>
-
 <body>
-    <main class="login-page">
-        <section class="box-login" aria-label="Login">
-            <div class="login-card-header">
-                <span>Entrar no sistema</span>
-                <img src="../img/Vex.png" alt="VEX">
+    <main class="login">
+        <div class="login-box">
+            <a href="/" aria-label="Voltar ao início"><img src="../img/Vex.png" alt="VEX" class="login-logo"></a>
+            <h1>Acessar sistema</h1>
+            <form id="login-form" method="post">
+                <label for="email">E-mail</label>
+                <input type="email" name="email" id="email" placeholder="Digite seu e-mail" autocomplete="email" required>
+                <label for="password">Senha</label>
+                <div class="password-field">
+                    <input type="password" name="password" id="password" placeholder="Digite sua senha" autocomplete="current-password" required>
+                    <button class="password-toggle" type="button" aria-label="Mostrar senha" aria-controls="password"><span class="icon-eye" aria-hidden="true"></span></button>
+                </div>
+                <button class="btn" type="submit">Acessar<span class="icon-arrow" aria-hidden="true"></span></button>
+            </form>
+            <div class="login-links">
+                <button class="forgot-password" type="button">Esqueci a senha</button>
+                <a class="register-link" href="/">Não tenho conta</a>
             </div>
-
-            <div class="form-login">
-                <form method="post">
-                    <label for="username">Usuário</label>
-                    <input type="text" id="username" name="username" autocomplete="username" required>
-
-                    <label for="password">Senha</label>
-                    <input type="password" id="password" name="password" autocomplete="current-password" required>
-
-                    <button type="submit">Entrar</button>
-                </form>
-            </div>
-        </section>
+            <dialog class="modal" id="recovery-modal" aria-labelledby="recovery-title">
+                <div class="modal-header">
+                    <h2 id="recovery-title">Recuperar senha</h2>
+                    <button class="modal-close" type="button" aria-label="Fechar modal">×</button>
+                </div>
+                <div class="modal-content">
+                    <form id="recovery-form">
+                        <label for="recovery-email">E-mail</label>
+                        <input id="recovery-email" name="email" type="email" placeholder="Digite seu e-mail" autocomplete="email" required>
+                        <button class="btn" type="submit">Enviar link de recuperação</button>
+                        <p class="recovery-message" role="status"></p>
+                    </form>
+                </div>
+            </dialog>
+        </div>
     </main>
 </body>
-
 </html>
+
